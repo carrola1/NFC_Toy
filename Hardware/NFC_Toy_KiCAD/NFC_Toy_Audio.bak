@@ -1,0 +1,291 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:stm32
+LIBS:JLink_Mini
+LIBS:STM32L062K8
+LIBS:Pad
+LIBS:LIS3DH
+LIBS:TPS61030
+LIBS:MIC5225
+LIBS:STM32L0-LQFP48
+LIBS:MAX98357
+LIBS:Micro SD 503182-1852
+LIBS:PN532
+LIBS:Oscillator
+LIBS:NFC_Toy-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MAX98357 U?
+U 1 1 5ACDFE57
+P 6800 3400
+F 0 "U?" H 6800 3300 50  0000 C CNN
+F 1 "MAX98357" H 6800 3500 50  0000 C CNN
+F 2 "MODULE" H 6800 3400 50  0001 C CNN
+F 3 "DOCUMENTATION" H 6800 3400 50  0001 C CNN
+	1    6800 3400
+	1    0    0    -1  
+$EndComp
+Text GLabel 5800 3000 0    47   Input ~ 0
+I2S_SD
+Text GLabel 5800 3700 0    47   Input ~ 0
+I2S_WS
+Text GLabel 5800 3800 0    47   Input ~ 0
+I2S_CK
+Wire Wire Line
+	5800 3700 5900 3700
+Wire Wire Line
+	5800 3800 5900 3800
+Wire Wire Line
+	5800 3000 5900 3000
+NoConn ~ 5900 3300
+NoConn ~ 5900 3400
+NoConn ~ 5900 3500
+NoConn ~ 5900 3600
+$Comp
+L GND #PWR?
+U 1 1 5ACDFE68
+P 6800 4350
+F 0 "#PWR?" H 6800 4100 50  0001 C CNN
+F 1 "GND" H 6800 4200 50  0000 C CNN
+F 2 "" H 6800 4350 50  0001 C CNN
+F 3 "" H 6800 4350 50  0001 C CNN
+	1    6800 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR?
+U 1 1 5ACDFE6E
+P 6850 2450
+F 0 "#PWR?" H 6850 2300 50  0001 C CNN
+F 1 "+5V" H 6850 2590 50  0000 C CNN
+F 2 "" H 6850 2450 50  0001 C CNN
+F 3 "" H 6850 2450 50  0001 C CNN
+	1    6850 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6800 2500 6800 2450
+Wire Wire Line
+	6800 2450 6900 2450
+Wire Wire Line
+	6900 2450 6900 2500
+Connection ~ 6850 2450
+Wire Wire Line
+	6800 4300 6800 4350
+Wire Wire Line
+	6700 4300 6700 4350
+Wire Wire Line
+	6700 4350 6900 4350
+Wire Wire Line
+	6900 4350 6900 4300
+Connection ~ 6800 4350
+Text GLabel 5800 3100 0    47   Input ~ 0
+AUDIO_SD_N
+Wire Wire Line
+	5800 3100 5900 3100
+$Comp
+L R R?
+U 1 1 5ACDFE7F
+P 5150 3000
+F 0 "R?" V 5230 3000 50  0000 C CNN
+F 1 "DNP" V 5150 3000 50  0000 C CNN
+F 2 "" V 5080 3000 50  0001 C CNN
+F 3 "" H 5150 3000 50  0001 C CNN
+	1    5150 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5ACDFE86
+P 5150 3400
+F 0 "R?" V 5230 3400 50  0000 C CNN
+F 1 "DNP" V 5150 3400 50  0000 C CNN
+F 2 "" V 5080 3400 50  0001 C CNN
+F 3 "" H 5150 3400 50  0001 C CNN
+	1    5150 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 3150 5150 3250
+Wire Wire Line
+	5900 3200 5150 3200
+Connection ~ 5150 3200
+$Comp
+L GND #PWR?
+U 1 1 5ACDFE90
+P 5150 3600
+F 0 "#PWR?" H 5150 3350 50  0001 C CNN
+F 1 "GND" H 5150 3450 50  0000 C CNN
+F 2 "" H 5150 3600 50  0001 C CNN
+F 3 "" H 5150 3600 50  0001 C CNN
+	1    5150 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR?
+U 1 1 5ACDFE96
+P 5150 2800
+F 0 "#PWR?" H 5150 2650 50  0001 C CNN
+F 1 "+5V" H 5150 2940 50  0000 C CNN
+F 2 "" H 5150 2800 50  0001 C CNN
+F 3 "" H 5150 2800 50  0001 C CNN
+	1    5150 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 2850 5150 2800
+Wire Wire Line
+	5150 3550 5150 3600
+Text Notes 6050 2750 2    47   ~ 0
+GAIN_SLOT:\n    100k to GND - 15dB\n    GND - 12dB\n    NC - 9dB\n    VDD - 6dB\n    100k to VDD - 3dB
+$Comp
+L Pad J?
+U 1 1 5ACE08A3
+P 8300 3500
+F 0 "J?" H 8300 3300 60  0000 C CNN
+F 1 "SPKR-" H 8300 3500 60  0000 C CNN
+F 2 "" H 8300 3500 60  0001 C CNN
+F 3 "" H 8300 3500 60  0001 C CNN
+	1    8300 3500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Pad J?
+U 1 1 5ACE08AA
+P 8300 3850
+F 0 "J?" H 8300 3650 60  0000 C CNN
+F 1 "SPKR+" H 8300 3850 60  0000 C CNN
+F 2 "" H 8300 3850 60  0001 C CNN
+F 3 "" H 8300 3850 60  0001 C CNN
+	1    8300 3850
+	-1   0    0    -1  
+$EndComp
+$Comp
+L 503182-1852 J?
+U 1 1 5ACE08EE
+P 3000 3350
+F 0 "J?" H 3000 4073 50  0000 L BNN
+F 1 "503182-1852" H 3000 2527 50  0000 L BNN
+F 2 "MOLEX_503182-1852" H 3000 3350 50  0001 L BNN
+F 3 "5031821852" H 3000 3350 50  0001 L BNN
+F 4 "Unavailable" H 3000 3350 50  0001 L BNN "Field4"
+F 5 "1.10mm Pitch microSD Memory Card Connector, Normal Mount Surface Mount, Push-Push Type, 1.45mm Height, Anti-card fly-out" H 3000 3350 50  0001 L BNN "Field5"
+F 6 "None" H 3000 3350 50  0001 L BNN "Field6"
+F 7 "Molex" H 3000 3350 50  0001 L BNN "Field7"
+F 8 "None" H 3000 3350 50  0001 L BNN "Field8"
+	1    3000 3350
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 3200 2750
+Text GLabel 3450 2850 2    47   Input ~ 0
+SPI_NSS
+Text GLabel 3450 3150 2    47   Input ~ 0
+SPI_SCK
+Text GLabel 3450 3350 2    47   Output ~ 0
+SPI_MISO
+Text GLabel 3450 2950 2    47   Input ~ 0
+SPI_MOSI
+Wire Wire Line
+	3450 3350 3200 3350
+Wire Wire Line
+	3450 3150 3200 3150
+Wire Wire Line
+	3450 2950 3200 2950
+Wire Wire Line
+	3450 2850 3200 2850
+$Comp
+L +3.3V #PWR?
+U 1 1 5ACE0C10
+P 3350 2700
+F 0 "#PWR?" H 3350 2550 50  0001 C CNN
+F 1 "+3.3V" H 3350 2840 50  0000 C CNN
+F 2 "" H 3350 2700 50  0001 C CNN
+F 3 "" H 3350 2700 50  0001 C CNN
+	1    3350 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 3050 3350 3050
+Wire Wire Line
+	3350 3050 3350 2700
+Wire Wire Line
+	3200 3250 3350 3250
+Wire Wire Line
+	3350 3250 3350 4000
+Text GLabel 3450 3650 2    47   Output ~ 0
+SD_DETECT
+Text GLabel 3450 3750 2    47   Output ~ 0
+SD_SW
+NoConn ~ 3200 3450
+Wire Wire Line
+	3200 3650 3450 3650
+Wire Wire Line
+	3200 3750 3450 3750
+$Comp
+L GND #PWR?
+U 1 1 5ACE0D8F
+P 3350 4000
+F 0 "#PWR?" H 3350 3750 50  0001 C CNN
+F 1 "GND" H 3350 3850 50  0000 C CNN
+F 2 "" H 3350 4000 50  0001 C CNN
+F 3 "" H 3350 4000 50  0001 C CNN
+	1    3350 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 3950 3350 3950
+Connection ~ 3350 3950
+Wire Wire Line
+	7700 3700 7850 3700
+Wire Wire Line
+	7850 3700 7850 3600
+Wire Wire Line
+	7850 3600 8050 3600
+Wire Wire Line
+	7700 3800 7850 3800
+Wire Wire Line
+	7850 3800 7850 3950
+Wire Wire Line
+	7850 3950 8050 3950
+$EndSCHEMATC
