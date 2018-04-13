@@ -1,4 +1,4 @@
-update=4/11/2018 12:52:37 PM
+update=4/13/2018 8:25:34 AM
 version=1
 last_client=kicad
 [pcbnew]
@@ -70,3 +70,5 @@ LibName38=Libraries/Symbols/MAX98357
 LibName39=Libraries/Symbols/Micro SD 503182-1852
 LibName40=Libraries/Symbols/PN532
 LibName41=Libraries/Symbols/Oscillator
+LibName42=Libraries/Symbols/APA102
+LibName43=Libraries/Symbols/SN74LVC2T45
