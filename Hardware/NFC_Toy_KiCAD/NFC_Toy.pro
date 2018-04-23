@@ -1,4 +1,4 @@
-update=4/13/2018 8:25:34 AM
+update=4/22/2018 1:00:44 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -72,3 +72,4 @@ LibName40=Libraries/Symbols/PN532
 LibName41=Libraries/Symbols/Oscillator
 LibName42=Libraries/Symbols/APA102
 LibName43=Libraries/Symbols/SN74LVC2T45
+LibName44=mechanical
