@@ -125,12 +125,12 @@ nRST
 $Comp
 L R R4
 U 1 1 5AC7A59A
-P 2210 4880
-F 0 "R4" V 2290 4880 50  0000 C CNN
-F 1 "10k" V 2210 4880 50  0000 C CNN
-F 2 "Resistors_SMD:R_0603_HandSoldering" V 2140 4880 50  0001 C CNN
-F 3 "" H 2210 4880 50  0001 C CNN
-	1    2210 4880
+P 2070 4880
+F 0 "R4" V 2150 4880 50  0000 C CNN
+F 1 "10k" V 2070 4880 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" V 2000 4880 50  0001 C CNN
+F 3 "" H 2070 4880 50  0001 C CNN
+	1    2070 4880
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -202,12 +202,12 @@ $EndComp
 $Comp
 L R R3
 U 1 1 5ACB59B1
-P 2210 4480
-F 0 "R3" V 2290 4480 50  0000 C CNN
-F 1 "DNP" V 2210 4480 50  0000 C CNN
-F 2 "Resistors_SMD:R_0603_HandSoldering" V 2140 4480 50  0001 C CNN
-F 3 "" H 2210 4480 50  0001 C CNN
-	1    2210 4480
+P 2070 4480
+F 0 "R3" V 2150 4480 50  0000 C CNN
+F 1 "DNP" V 2070 4480 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" V 2000 4480 50  0001 C CNN
+F 3 "" H 2070 4480 50  0001 C CNN
+	1    2070 4480
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -539,12 +539,12 @@ $EndComp
 $Comp
 L +3.3V #PWR021
 U 1 1 5ACD275B
-P 2210 4180
-F 0 "#PWR021" H 2210 4030 50  0001 C CNN
-F 1 "+3.3V" H 2210 4320 50  0000 C CNN
-F 2 "" H 2210 4180 50  0001 C CNN
-F 3 "" H 2210 4180 50  0001 C CNN
-	1    2210 4180
+P 2070 4180
+F 0 "#PWR021" H 2070 4030 50  0001 C CNN
+F 1 "+3.3V" H 2070 4320 50  0000 C CNN
+F 2 "" H 2070 4180 50  0001 C CNN
+F 3 "" H 2070 4180 50  0001 C CNN
+	1    2070 4180
 	1    0    0    -1  
 $EndComp
 Text GLabel 6550 5330 2    47   Output ~ 0
@@ -554,7 +554,7 @@ I2S_CK
 Text GLabel 6760 5630 2    47   Output ~ 0
 I2S_SD
 NoConn ~ 5960 5530
-Text GLabel 5960 5230 2    47   Output ~ 0
+Text GLabel 5940 6230 2    47   Output ~ 0
 AUDIO_SD_N
 $Sheet
 S 9780 870  900  300 
@@ -567,12 +567,12 @@ SPI_NSS
 $Comp
 L GND #PWR022
 U 1 1 5ACE0183
-P 2210 5030
-F 0 "#PWR022" H 2210 4780 50  0001 C CNN
-F 1 "GND" H 2210 4880 50  0000 C CNN
-F 2 "" H 2210 5030 50  0001 C CNN
-F 3 "" H 2210 5030 50  0001 C CNN
-	1    2210 5030
+P 2070 5030
+F 0 "#PWR022" H 2070 4780 50  0001 C CNN
+F 1 "GND" H 2070 4880 50  0000 C CNN
+F 2 "" H 2070 5030 50  0001 C CNN
+F 3 "" H 2070 5030 50  0001 C CNN
+	1    2070 5030
 	1    0    0    -1  
 $EndComp
 Text GLabel 1460 5430 0    47   Output ~ 0
@@ -581,9 +581,9 @@ Text GLabel 1460 5530 0    47   Input ~ 0
 SPI_MISO
 Text GLabel 1460 5630 0    47   Output ~ 0
 SPI_MOSI
-Text GLabel 2560 5730 0    47   Input ~ 0
+Text GLabel 2620 5130 0    47   Input ~ 0
 SD_DETECT
-Text GLabel 2560 5830 0    47   Input ~ 0
+Text GLabel 2570 5230 0    47   Input ~ 0
 SD_SW
 $Sheet
 S 9780 1420 900  250 
@@ -624,11 +624,11 @@ F 3 "" H 6810 4230 50  0001 C CNN
 	1    6810 4230
 	1    0    0    -1  
 $EndComp
-Text GLabel 5960 5030 2    47   Output ~ 0
+Text GLabel 5960 4930 2    47   Output ~ 0
 NFC_RST_N
-Text GLabel 5960 5130 2    47   Output ~ 0
+Text GLabel 5890 4530 2    47   Output ~ 0
 NFC_RST_PDN_N
-Text GLabel 5960 4930 2    47   Input ~ 0
+Text GLabel 5960 5030 2    47   Input ~ 0
 NFC_IRQ
 $Comp
 L C C6
@@ -735,9 +735,9 @@ Text GLabel 10140 5850 2    47   Input ~ 0
 I2C_SCL
 NoConn ~ 10090 5300
 NoConn ~ 10090 5400
-Text GLabel 5960 4530 2    47   Input ~ 0
+Text GLabel 5960 4430 2    47   Input ~ 0
 XL_INT2
-Text GLabel 5960 4630 2    47   Input ~ 0
+Text GLabel 2560 6630 0    47   Input ~ 0
 XL_INT1
 $Comp
 L +3.3V #PWR028
@@ -910,12 +910,12 @@ $EndComp
 $Comp
 L TEST TP7
 U 1 1 5AD37E05
-P 6470 4680
-F 0 "TP7" H 6470 4980 50  0000 C BNN
-F 1 "TEST" H 6470 4930 50  0000 C CNN
-F 2 "NFC_Toy_Lib:Test_Point" H 6470 4680 50  0001 C CNN
-F 3 "" H 6470 4680 50  0001 C CNN
-	1    6470 4680
+P 6570 4680
+F 0 "TP7" H 6570 4980 50  0000 C BNN
+F 1 "TEST" H 6570 4930 50  0000 C CNN
+F 2 "NFC_Toy_Lib:Test_Point" H 6570 4680 50  0001 C CNN
+F 3 "" H 6570 4680 50  0001 C CNN
+	1    6570 4680
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -953,7 +953,7 @@ Wire Wire Line
 Wire Wire Line
 	9880 3730 9930 3730
 Wire Wire Line
-	2210 4630 2210 4730
+	2070 4630 2070 4730
 Wire Wire Line
 	1360 1730 2010 1730
 Wire Wire Line
@@ -975,9 +975,9 @@ Connection ~ 1460 1730
 Wire Wire Line
 	2010 1730 2010 1580
 Connection ~ 1660 1730
-Connection ~ 2210 4730
+Connection ~ 2070 4730
 Wire Wire Line
-	2210 4180 2210 4330
+	2070 4180 2070 4330
 Connection ~ 2010 1230
 Wire Wire Line
 	2210 1680 2210 1230
@@ -1066,7 +1066,7 @@ Wire Wire Line
 	6810 2080 6810 2180
 Connection ~ 6810 1730
 Wire Wire Line
-	2210 4730 2660 4730
+	2070 4730 2660 4730
 Wire Wire Line
 	2560 4430 2660 4430
 Wire Wire Line
@@ -1115,8 +1115,6 @@ Wire Wire Line
 Wire Wire Line
 	5860 5630 6760 5630
 Wire Wire Line
-	5860 5230 5960 5230
-Wire Wire Line
 	1460 5330 2660 5330
 Wire Wire Line
 	1460 5430 2660 5430
@@ -1125,22 +1123,12 @@ Wire Wire Line
 Wire Wire Line
 	1460 5630 2660 5630
 Wire Wire Line
-	2560 5730 2660 5730
-Wire Wire Line
-	2560 5830 2660 5830
-Wire Wire Line
 	6710 4330 6710 4230
 Wire Wire Line
 	6710 4230 6940 4230
 Wire Wire Line
 	6940 4230 6940 4330
 Connection ~ 6810 4230
-Wire Wire Line
-	5960 5030 5860 5030
-Wire Wire Line
-	5860 5130 5960 5130
-Wire Wire Line
-	5960 4930 5860 4930
 Wire Wire Line
 	1760 4090 1760 4190
 Wire Wire Line
@@ -1226,10 +1214,6 @@ Wire Wire Line
 	7840 5050 7840 5000
 Connection ~ 8090 5000
 Wire Wire Line
-	5860 4530 5960 4530
-Wire Wire Line
-	5860 4630 5960 4630
-Wire Wire Line
 	6710 4630 6710 4730
 Connection ~ 6710 4730
 Wire Wire Line
@@ -1277,9 +1261,6 @@ Wire Notes Line
 Wire Notes Line
 	11110 4630 7710 4630
 Wire Wire Line
-	6470 4680 6470 4730
-Connection ~ 6470 4730
-Wire Wire Line
 	6250 5730 6250 5330
 Connection ~ 6250 5330
 Wire Wire Line
@@ -1293,11 +1274,11 @@ Connection ~ 2560 2530
 Wire Notes Line
 	660  3640 660  7640
 Wire Notes Line
-	660  7640 6200 7640
+	660  7640 6440 7640
 Wire Notes Line
-	6200 7640 6200 6120
+	6440 7640 6440 6120
 Wire Notes Line
-	6200 6120 7470 6120
+	6440 6120 7470 6120
 Wire Notes Line
 	7470 6120 7470 3640
 Wire Notes Line
@@ -1386,16 +1367,11 @@ $EndComp
 Wire Wire Line
 	10120 5010 10120 5150
 NoConn ~ 5860 4330
-NoConn ~ 5860 4430
 NoConn ~ 5860 6030
-NoConn ~ 5860 6230
 NoConn ~ 5860 6430
-NoConn ~ 2660 6630
 NoConn ~ 2660 6430
 NoConn ~ 2660 6230
 NoConn ~ 2660 5930
-NoConn ~ 2660 5230
-NoConn ~ 2660 5130
 NoConn ~ 2660 5030
 NoConn ~ 2660 4930
 $Comp
@@ -1466,4 +1442,28 @@ F 3 "" H 8330 850 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8330 1000 8330 850 
+Wire Wire Line
+	2660 5130 2620 5130
+Wire Wire Line
+	2660 5230 2570 5230
+NoConn ~ 2660 5730
+NoConn ~ 2660 5830
+Wire Wire Line
+	5860 4430 5960 4430
+Wire Wire Line
+	2560 6630 2660 6630
+Wire Wire Line
+	6570 4680 6570 4730
+Connection ~ 6570 4730
+Wire Wire Line
+	5890 4530 5860 4530
+NoConn ~ 5860 4630
+Wire Wire Line
+	5940 6230 5860 6230
+NoConn ~ 5860 5130
+NoConn ~ 5860 5230
+Wire Wire Line
+	5960 4930 5860 4930
+Wire Wire Line
+	5960 5030 5860 5030
 $EndSCHEMATC

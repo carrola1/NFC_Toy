@@ -611,17 +611,6 @@ Text GLabel 3600 5150 0    47   Input ~ 0
 NFC_RST_PDN_N
 Connection ~ 3700 5150
 $Comp
-L C C23
-U 1 1 5ACEFE58
-P 5550 2050
-F 0 "C23" H 5575 2150 50  0000 L CNN
-F 1 "0.1u" H 5575 1950 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0402" H 5588 1900 50  0001 C CNN
-F 3 "" H 5550 2050 50  0001 C CNN
-	1    5550 2050
-	1    0    0    -1  
-$EndComp
-$Comp
 L C C24
 U 1 1 5ACEFF35
 P 5850 2050
@@ -665,12 +654,9 @@ F 3 "" H 4500 1900 50  0001 C CNN
 	1    4500 1900
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5550 1850 5550 1900
 Connection ~ 5250 1850
 Wire Wire Line
 	5850 1850 5850 1900
-Connection ~ 5550 1850
 Wire Wire Line
 	6150 1850 6150 1900
 Connection ~ 5850 1850
@@ -736,10 +722,6 @@ F 3 "" H 6450 2300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6450 2200 6450 2300
-Wire Wire Line
-	5550 2200 5550 2250
-Wire Wire Line
-	5550 2250 6450 2250
 Connection ~ 6450 2250
 Wire Wire Line
 	5850 2200 5850 2250
@@ -832,4 +814,6 @@ F 3 "" H 8600 4500 50  0001 C CNN
 	1    8600 4500
 	-1   0    0    1   
 $EndComp
+Wire Wire Line
+	5850 2250 6450 2250
 $EndSCHEMATC
