@@ -1339,9 +1339,6 @@ Connection ~ 1860 5430
 Wire Wire Line
 	1680 5670 1680 5530
 Connection ~ 1680 5530
-Wire Wire Line
-	1500 5670 1500 5530
-Connection ~ 1500 5530
 $Comp
 L TEST TP5
 U 1 1 5AD39F6E
@@ -1466,4 +1463,7 @@ Wire Wire Line
 	5960 4930 5860 4930
 Wire Wire Line
 	5960 5030 5860 5030
+Wire Wire Line
+	1500 5670 1500 5630
+Connection ~ 1500 5630
 $EndSCHEMATC

@@ -1269,7 +1269,6 @@ Connection ~ 6470 5430
 Wire Wire Line
 	6700 5730 6700 5630
 Connection ~ 6700 5630
-Connection ~ 10120 5150
 Connection ~ 2560 2530
 Wire Notes Line
 	660  3640 660  7640
@@ -1339,9 +1338,6 @@ Connection ~ 1860 5430
 Wire Wire Line
 	1680 5670 1680 5530
 Connection ~ 1680 5530
-Wire Wire Line
-	1500 5670 1500 5530
-Connection ~ 1500 5530
 $Comp
 L TEST TP5
 U 1 1 5AD39F6E
@@ -1353,19 +1349,6 @@ F 3 "" H 2560 2470 50  0001 C CNN
 	1    2560 2470
 	1    0    0    -1  
 $EndComp
-$Comp
-L TEST TP11
-U 1 1 5AD3A341
-P 10120 5010
-F 0 "TP11" H 10120 5310 50  0000 C BNN
-F 1 "TEST" H 10120 5260 50  0000 C CNN
-F 2 "NFC_Toy_Lib:Test_Point" H 10120 5010 50  0001 C CNN
-F 3 "" H 10120 5010 50  0001 C CNN
-	1    10120 5010
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10120 5010 10120 5150
 NoConn ~ 5860 4330
 NoConn ~ 5860 6030
 NoConn ~ 5860 6430
@@ -1466,4 +1449,7 @@ Wire Wire Line
 	5960 4930 5860 4930
 Wire Wire Line
 	5960 5030 5860 5030
+Wire Wire Line
+	1500 5670 1500 5630
+Connection ~ 1500 5630
 $EndSCHEMATC
