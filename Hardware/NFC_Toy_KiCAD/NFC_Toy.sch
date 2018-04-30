@@ -1009,20 +1009,13 @@ Wire Wire Line
 Wire Wire Line
 	2510 1830 2710 1830
 Wire Wire Line
-	2710 2530 2560 2530
-Wire Wire Line
-	2560 2470 2560 3080
-Wire Wire Line
-	2710 2630 2560 2630
-Connection ~ 2560 2630
-Wire Wire Line
 	2710 2730 2560 2730
 Connection ~ 2560 2730
 Wire Wire Line
-	2710 2830 2560 2830
+	2560 2830 2710 2830
 Connection ~ 2560 2830
 Wire Wire Line
-	2710 3030 2560 3030
+	2560 3030 2710 3030
 Connection ~ 2560 3030
 Connection ~ 1460 1230
 Wire Wire Line
@@ -1269,7 +1262,6 @@ Connection ~ 6470 5430
 Wire Wire Line
 	6700 5730 6700 5630
 Connection ~ 6700 5630
-Connection ~ 2560 2530
 Wire Notes Line
 	660  3640 660  7640
 Wire Notes Line
@@ -1341,12 +1333,12 @@ Connection ~ 1680 5530
 $Comp
 L TEST TP5
 U 1 1 5AD39F6E
-P 2560 2470
-F 0 "TP5" H 2560 2770 50  0000 C BNN
-F 1 "TEST" H 2560 2720 50  0000 C CNN
-F 2 "NFC_Toy_Lib:Test_Point" H 2560 2470 50  0001 C CNN
-F 3 "" H 2560 2470 50  0001 C CNN
-	1    2560 2470
+P 7970 910
+F 0 "TP5" H 7970 1210 50  0000 C BNN
+F 1 "TEST" H 7970 1160 50  0000 C CNN
+F 2 "NFC_Toy_Lib:Test_Point" H 7970 910 50  0001 C CNN
+F 3 "" H 7970 910 50  0001 C CNN
+	1    7970 910 
 	1    0    0    -1  
 $EndComp
 NoConn ~ 5860 4330
@@ -1452,4 +1444,58 @@ Wire Wire Line
 Wire Wire Line
 	1500 5670 1500 5630
 Connection ~ 1500 5630
+Wire Wire Line
+	2560 2530 2560 3080
+$Comp
+L TEST TP17
+U 1 1 5AE3537D
+P 7770 900
+F 0 "TP17" H 7770 1200 50  0000 C BNN
+F 1 "TEST" H 7770 1150 50  0000 C CNN
+F 2 "NFC_Toy_Lib:Test_Point" H 7770 900 50  0001 C CNN
+F 3 "" H 7770 900 50  0001 C CNN
+	1    7770 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST TP16
+U 1 1 5AE3544B
+P 7570 900
+F 0 "TP16" H 7570 1200 50  0000 C BNN
+F 1 "TEST" H 7570 1150 50  0000 C CNN
+F 2 "NFC_Toy_Lib:Test_Point" H 7570 900 50  0001 C CNN
+F 3 "" H 7570 900 50  0001 C CNN
+	1    7570 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L TEST TP11
+U 1 1 5AE35510
+P 7380 900
+F 0 "TP11" H 7380 1200 50  0000 C BNN
+F 1 "TEST" H 7380 1150 50  0000 C CNN
+F 2 "NFC_Toy_Lib:Test_Point" H 7380 900 50  0001 C CNN
+F 3 "" H 7380 900 50  0001 C CNN
+	1    7380 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7380 900  7380 970 
+Wire Wire Line
+	7380 970  8330 970 
+Connection ~ 8330 970 
+Wire Wire Line
+	7970 910  7970 970 
+Connection ~ 7970 970 
+Wire Wire Line
+	7770 900  7770 970 
+Connection ~ 7770 970 
+Wire Wire Line
+	7570 900  7570 970 
+Connection ~ 7570 970 
+Wire Wire Line
+	2710 2530 2560 2530
+Wire Wire Line
+	2710 2630 2560 2630
+Connection ~ 2560 2630
 $EndSCHEMATC
