@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name NFC_Toy_Lib)(type KiCad)(uri C:/GitHub/NFC_Toy/Hardware/NFC_Toy_KiCAD/Libraries/Footprints/NFC_Toy_Lib.pretty)(options "")(descr ""))
+)
