@@ -29,6 +29,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:JLink_Mini
+LIBS:JLink_Adpater-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -49,7 +50,7 @@ U 1 1 5AF195CD
 P 4410 3740
 F 0 "J1" H 4410 3640 50  0000 C CNN
 F 1 "JLink_Mini" H 4410 3740 50  0000 C CNN
-F 2 "Socket_Strips:Socket_Strip_Straight_2x05_Pitch1.27mm_SMD" H 4410 3740 50  0001 C CNN
+F 2 "Socket_Strips:Socket_Strip_Straight_2x05_Pitch1.27mm" H 4410 3740 50  0001 C CNN
 F 3 "DOCUMENTATION" H 4410 3740 50  0001 C CNN
 	1    4410 3740
 	1    0    0    -1  
@@ -60,19 +61,19 @@ U 1 1 5AF1968D
 P 7090 3750
 F 0 "J2" H 7090 3650 50  0000 C CNN
 F 1 "JLink_Mini" H 7090 3750 50  0000 C CNN
-F 2 "Socket_Strips:Socket_Strip_Straight_2x05_Pitch2.54mm_SMD" H 7090 3750 50  0001 C CNN
+F 2 "Socket_Strips:Socket_Strip_Straight_2x05_Pitch2.54mm" H 7090 3750 50  0001 C CNN
 F 3 "DOCUMENTATION" H 7090 3750 50  0001 C CNN
 	1    7090 3750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3530 3230 6210 3230
+	3530 3200 6210 3200
 Wire Wire Line
-	6210 3230 6210 3550
+	6210 3200 6210 3550
 Wire Wire Line
 	6210 3550 6340 3550
 Wire Wire Line
-	3530 3230 3530 3540
+	3530 3200 3530 3540
 Wire Wire Line
 	3530 3540 3660 3540
 Wire Wire Line
@@ -165,4 +166,21 @@ Wire Wire Line
 	8300 4490 8300 3950
 Wire Wire Line
 	8300 3950 7840 3950
+$Comp
+L R R1
+U 1 1 5B0010A4
+P 5480 3380
+F 0 "R1" V 5560 3380 50  0000 C CNN
+F 1 "100k" V 5480 3380 50  0000 C CNN
+F 2 "" V 5410 3380 50  0001 C CNN
+F 3 "" H 5480 3380 50  0001 C CNN
+	1    5480 3380
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5480 3530 5480 3540
+Connection ~ 5480 3540
+Wire Wire Line
+	5480 3230 5480 3200
+Connection ~ 5480 3200
 $EndSCHEMATC

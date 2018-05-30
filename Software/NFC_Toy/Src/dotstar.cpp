@@ -25,7 +25,6 @@
   ------------------------------------------------------------------------*/
 
 #include "dotstar.hpp"
-#include "stm32l0xx_hal.h"
 #include "gpio.h"
 #include <stdlib.h>
 
