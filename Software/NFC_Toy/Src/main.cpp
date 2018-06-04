@@ -1,48 +1,48 @@
 
 /**
   ******************************************************************************
-  * @file           : main.c
+  * @file           : mainc
   * @brief          : Main program body
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether
+  * USER CODE END Other portions of this file, whether
   * inserted by the user or by software development tools
-  * are owned by their respective copyright owners.
+  * are owned by their respective copyright owners
   *
-  * Copyright (c) 2018 STMicroelectronics International N.V.
-  * All rights reserved.
+  * Copyright (c) 2018 STMicroelectronics International NV
+  * All rights reserved
   *
   * Redistribution and use in source and binary forms, with or without
   * modification, are permitted, provided that the following conditions are met:
   *
-  * 1. Redistribution of source code must retain the above copyright notice,
-  *    this list of conditions and the following disclaimer.
-  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  * 1 Redistribution of source code must retain the above copyright notice,
+  *    this list of conditions and the following disclaimer
+  * 2 Redistributions in binary form must reproduce the above copyright notice,
   *    this list of conditions and the following disclaimer in the documentation
-  *    and/or other materials provided with the distribution.
-  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    and/or other materials provided with the distribution
+  * 3 Neither the name of STMicroelectronics nor the names of other
   *    contributors to this software may be used to endorse or promote products
-  *    derived from this software without specific written permission.
-  * 4. This software, including modifications and/or derivative works of this
+  *    derived from this software without specific written permission
+  * 4 This software, including modifications and/or derivative works of this
   *    software, must execute solely and exclusively on microcontroller or
-  *    microprocessor devices manufactured by or for STMicroelectronics.
-  * 5. Redistribution and use of this software other than as permitted under
+  *    microprocessor devices manufactured by or for STMicroelectronics
+  * 5 Redistribution and use of this software other than as permitted under
   *    this license is void and will automatically terminate your rights under
-  *    this license.
+  *    this license
   *
   * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
   * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
   * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW IN NO EVENT
   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
   * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
   * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
   * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
   *
   ******************************************************************************
   */
@@ -56,6 +56,7 @@
 #include "gpio.h"
 #include "dotstar.hpp"
 #include "ring_effects.hpp"
+#include "lis3dh.hpp"
 
 /* USER CODE BEGIN Includes */
 
@@ -65,7 +66,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-RGB_VALS ring_rgb;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -81,7 +82,7 @@ void SystemClock_Config(void);
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
+  * @brief  The application entry point
   *
   * @retval None
   */
@@ -93,7 +94,7 @@ int main(void)
 
   /* MCU Configuration----------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
@@ -114,8 +115,27 @@ int main(void)
   MX_SPI1_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
-  DotStar ring = DotStar(12, DOTSTAR_RBG);
+  DotStar ring = DotStar(16, DOTSTAR_RBG);
   ring.begin(); // Initialize pins for output
+  RGB_VALS ring_rgb;
+  ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 0;
+  ring_set_all_pixels(ring, ring_rgb); // Initialize LEDs to off
+
+  LIS3DH accel = LIS3DH();
+  accel.begin(0x32);
+
+  uint16_t sound[128] = {0, 0,   803, 0,  1598, 0,  2378, 0,  3135, 0,  3862, 0,  4551, 0,
+	         5197, 0,  5792, 0,  6332, 0,  6811, 0,  7224, 0,  7568, 0,  7839, 0,
+	         8034, 0,  8152, 0,  8192, 0,  8152, 0,  8034, 0,  7839, 0,  7568, 0,
+	         7224, 0,  6811, 0,  6332, 0,  5792, 0,  5197, 0,  4551, 0,  3862, 0,
+	         3135, 0,  2378, 0,  1598, 0,   803, 0,     0, 0, 15581, 0, 14786, 0,
+	        14006, 0, 13249, 0, 12522, 0, 11833, 0, 11187, 0, 10591, 0, 10052, 0,
+	         9572, 0,  9159, 0,  8816, 0,  8545, 0,  8350, 0,  8232, 0,  8192, 0,
+	         8232, 0,  8350, 0,  8545, 0,  8816, 0,  9159, 0,  9572, 0, 10052, 0,
+	        10591, 0, 11187, 0, 11833, 0, 12522, 0, 13249, 0, 14006, 0, 14786, 0,
+	        15581, 0};
+  HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_SET);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,10 +146,12 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
-    HAL_GPIO_TogglePin(LED_2_GPIO_Port, LED_2_Pin);
-    ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 220;
-    loop_animation(ring, 12, 10, ring_rgb);
+    //HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
+    //HAL_GPIO_TogglePin(LED_2_GPIO_Port, LED_2_Pin);
+    //ring_rgbr = 0; ring_rgbg = 0; ring_rgbb = 220;
+    //ring_loop_animation(ring, 1, ring_rgb);
+    //accelread();
+    HAL_I2S_Transmit(&hi2s2, &sound[0], 128, HAL_MAX_DELAY);
 
   }
   /* USER CODE END 3 */
@@ -200,9 +222,9 @@ void SystemClock_Config(void)
 /* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @param  file: The file name as string.
-  * @param  line: The line in file as a number.
+  * @brief  This function is executed in case of error occurrence
+  * @param  file: The file name as string
+  * @param  line: The line in file as a number
   * @retval None
   */
 void _Error_Handler(char *file, int line)
@@ -218,7 +240,7 @@ void _Error_Handler(char *file, int line)
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
+  *         where the assert_param error has occurred
   * @param  file: pointer to the source file name
   * @param  line: assert_param error line source number
   * @retval None

@@ -18,7 +18,7 @@
 #ifndef _DOTSTAR_HPP_
 #define _DOTSTAR_HPP_
 
-#include "stm32l0xx_hal.h"
+#include <stdint.h>
 
 // Color-order flag for LED pixels (optional extra parameter to constructor):
 // Bits 0,1 = R index (0-2), bits 2,3 = G index, bits 4,5 = B index
@@ -34,20 +34,20 @@ class DotStar {
 
  public:
 
-    DotStar(uint16_t n, uint8_t o=DOTSTAR_BRG);
+    DotStar(uint8_t n, uint8_t o=DOTSTAR_BRG);
    ~DotStar(void);
   void
     begin(void),                            // Prime pins/SPI for output
     clear(),                                // Set all pixel data to zero
     setBrightness(uint8_t),                 // Set global brightness 0-255
-    setPixelColor(uint16_t n, uint32_t c),
-    setPixelColor(uint16_t n, uint8_t r, uint8_t g, uint8_t b),
+    setPixelColor(uint8_t n, uint32_t c),
+    setPixelColor(uint8_t n, uint8_t r, uint8_t g, uint8_t b),
     show(void),                             // Issue color data to strip
-    updateLength(uint16_t n);               // Change length
+    updateLength(uint8_t n);               // Change length
   uint32_t
     Color(uint8_t r, uint8_t g, uint8_t b), // R,G,B to 32-bit color
-    getPixelColor(uint16_t n) const;        // Return 32-bit pixel color
-  uint16_t
+    getPixelColor(uint8_t n) const;        // Return 32-bit pixel color
+  uint8_t
     numPixels(void);                        // Return number of pixels
   uint8_t
     getBrightness(void) const,              // Return global brightness
@@ -55,7 +55,7 @@ class DotStar {
 
  private:
 
-  uint16_t
+  uint8_t
     numLEDs;                                // Number of pixels
   uint8_t
     brightness,                             // Global brightness setting

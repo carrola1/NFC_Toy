@@ -34,7 +34,7 @@
 #define Clock_Pin DOT_STAR_CLK_Pin
 
 // Constructor for 'soft' (bitbang) SPI -- any two pins can be used
-DotStar::DotStar(uint16_t n, uint8_t o) :
+DotStar::DotStar(uint8_t n, uint8_t o) :
  brightness(0), pixels(NULL), rOffset(o & 3), gOffset((o >> 2) & 3),
  bOffset((o >> 4) & 3)
 {
@@ -53,7 +53,7 @@ void DotStar::begin(void) { // Initialize SPI
 // config not hardcoded).  But DON'T use this for "recycling" strip RAM...
 // all that reallocation is likely to fragment and eventually fail.
 // Instead, set length once to longest strip.
-void DotStar::updateLength(uint16_t n) {
+void DotStar::updateLength(uint8_t n) {
 	uint16_t bytes = (rOffset == gOffset) ?
 	    n + ((n + 3) / 4) : // MONO: 10 bits/pixel, round up to next byte
 	    n * 3;              // COLOR: 3 bytes/pixel
@@ -101,7 +101,7 @@ void DotStar::show(void) {
   if(!pixels) return;
 
   uint8_t *ptr = pixels, i;            // -> LED data
-  uint16_t n   = numLEDs;              // Counter
+  uint8_t n   = numLEDs;              // Counter
   uint16_t b16 = (uint16_t)brightness; // Type-convert for fixed-point math
 
   for(i=0; i<4; i++) sw_spi_out(0);    // Start-frame marker
@@ -127,7 +127,7 @@ void DotStar::clear() { // Write 0s (off) to full pixel buffer
 
 // Set pixel color, separate R,G,B values (0-255 ea.)
 void DotStar::setPixelColor(
- uint16_t n, uint8_t r, uint8_t g, uint8_t b) {
+ uint8_t n, uint8_t r, uint8_t g, uint8_t b) {
   if(n < numLEDs) {
     uint8_t *p = &pixels[n * 3];
     p[rOffset] = r;
@@ -137,7 +137,7 @@ void DotStar::setPixelColor(
 }
 
 // Set pixel color, 'packed' RGB value (0x000000 - 0xFFFFFF)
-void DotStar::setPixelColor(uint16_t n, uint32_t c) {
+void DotStar::setPixelColor(uint8_t n, uint32_t c) {
   if(n < numLEDs) {
     uint8_t *p = &pixels[n * 3];
     p[rOffset] = (uint8_t)(c >> 16);
@@ -152,7 +152,7 @@ uint32_t DotStar::Color(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 // Read color from previously-set pixel, returns packed RGB value.
-uint32_t DotStar::getPixelColor(uint16_t n) const {
+uint32_t DotStar::getPixelColor(uint8_t n) const {
   if(n >= numLEDs) return 0;
   uint8_t *p = &pixels[n * 3];
   return ((uint32_t)p[rOffset] << 16) |
@@ -160,7 +160,7 @@ uint32_t DotStar::getPixelColor(uint16_t n) const {
           (uint32_t)p[bOffset];
 }
 
-uint16_t DotStar::numPixels(void) { // Ret. strip length
+uint8_t DotStar::numPixels(void) { // Ret. strip length
   return numLEDs;
 }
 
