@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * @file   fatfs.c
-  * @brief  Code for fatfs applications
+  * File Name          : dma.h
+  * Description        : This file contains all the function prototypes for
+  *                      the dma.c file
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -45,40 +46,43 @@
   *
   ******************************************************************************
   */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __dma_H
+#define __dma_H
 
-#include "fatfs.h"
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
-uint8_t retUSER;    /* Return value for USER */
-char USER_Path[4];   /* USER logical drive path */
+/* Includes ------------------------------------------------------------------*/
+#include "stm32l0xx_hal.h"
+#include "main.hpp"
 
-/* USER CODE BEGIN Variables */
+/* DMA memory to memory transfer handles -------------------------------------*/
+extern void _Error_Handler(char*, int);
 
-/* USER CODE END Variables */    
+/* USER CODE BEGIN Includes */
 
-void MX_FATFS_Init(void) 
-{
-  /*## FatFS: Link the USER driver ###########################*/
-  retUSER = FATFS_LinkDriver(&SD_SPI_Driver, USER_Path);
+/* USER CODE END Includes */
 
-  /* USER CODE BEGIN Init */
-  /* additional user code for init */     
-  /* USER CODE END Init */
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
+
+void MX_DMA_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* __dma_H */
 
 /**
-  * @brief  Gets Time from RTC 
-  * @param  None
-  * @retval Time in DWORD
+  * @}
   */
-DWORD get_fattime(void)
-{
-  /* USER CODE BEGIN get_fattime */
-  return 0;
-  /* USER CODE END get_fattime */  
-}
-
-/* USER CODE BEGIN Application */
-     
-/* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

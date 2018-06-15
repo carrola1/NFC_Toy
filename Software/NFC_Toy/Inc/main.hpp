@@ -65,6 +65,8 @@
 #define SD_DETECT_GPIO_Port GPIOA
 #define SD_SW_Pin GPIO_PIN_3
 #define SD_SW_GPIO_Port GPIOA
+#define SD_CS_Pin GPIO_PIN_4
+#define SD_CS_GPIO_Port GPIOA
 #define DOT_STAR_DATA_Pin GPIO_PIN_0
 #define DOT_STAR_DATA_GPIO_Port GPIOB
 #define DOT_STAR_CLK_Pin GPIO_PIN_1

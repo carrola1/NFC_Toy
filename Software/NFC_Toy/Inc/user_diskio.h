@@ -58,10 +58,20 @@
 /* USER CODE BEGIN 0 */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32l0xx_hal.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-extern Diskio_drvTypeDef  USER_Driver;
+extern Diskio_drvTypeDef  SD_SPI_Driver;
+
+typedef struct _SPI_Interface_Init {
+  uint16_t          SS_GPIO_Pin;
+  GPIO_TypeDef      *SS_GPIO_Port;
+  SPI_HandleTypeDef *hspi;
+} SPI_Interface_Init;
+   
+
+void SD_SPI_Configure(GPIO_TypeDef *SS_GPIO_Port, uint16_t SS_GPIO_Pin, SPI_HandleTypeDef *hspi);
 
 /* USER CODE END 0 */
    

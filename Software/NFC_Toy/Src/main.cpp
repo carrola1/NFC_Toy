@@ -66,7 +66,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+FATFS diskHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,16 +113,17 @@ int main(void)
   MX_I2C1_Init();
   MX_I2S2_Init();
   MX_SPI1_Init();
+  SD_SPI_Configure(SD_CS_GPIO_Port, SD_CS_Pin, &hspi1);
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
   DotStar ring = DotStar(16, DOTSTAR_RBG);
   ring.begin(); // Initialize pins for output
   RGB_VALS ring_rgb;
-  ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 0;
-  ring_set_all_pixels(ring, ring_rgb); // Initialize LEDs to off
+  //ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 0;
+  //ring_set_all_pixels(ring, ring_rgb); // Initialize LEDs to off
 
-  LIS3DH accel = LIS3DH();
-  accel.begin(0x32);
+  //LIS3DH accel = LIS3DH();
+  //accel.begin(0x32);
 
   uint16_t sound[128] = {0, 0,   803, 0,  1598, 0,  2378, 0,  3135, 0,  3862, 0,  4551, 0,
 	         5197, 0,  5792, 0,  6332, 0,  6811, 0,  7224, 0,  7568, 0,  7839, 0,
@@ -135,6 +136,9 @@ int main(void)
 	        10591, 0, 11187, 0, 11833, 0, 12522, 0, 13249, 0, 14006, 0, 14786, 0,
 	        15581, 0};
   HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_SET);
+
+  HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
+  FRESULT mount_res = f_mount(&diskHandle, "0:", 1);
 
   /* USER CODE END 2 */
 
@@ -151,7 +155,18 @@ int main(void)
     //ring_rgbr = 0; ring_rgbg = 0; ring_rgbb = 220;
     //ring_loop_animation(ring, 1, ring_rgb);
     //accelread();
-    HAL_I2S_Transmit(&hi2s2, &sound[0], 128, HAL_MAX_DELAY);
+    //HAL_I2S_Transmit(&hi2s2, &sound[0], 128, HAL_MAX_DELAY);
+	GPIO_PinState sd_present = HAL_GPIO_ReadPin(SD_SW_GPIO_Port, SD_SW_Pin);
+	if (sd_present == GPIO_PIN_RESET) {
+		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_SET);
+	} else {
+		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
+	}
+
+	if (mount_res == FR_OK) {
+		HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
+	}
+	HAL_Delay(200);
 
   }
   /* USER CODE END 3 */

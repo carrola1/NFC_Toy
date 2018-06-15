@@ -89,6 +89,8 @@ uint8_t FATFS_LinkDriver(Diskio_drvTypeDef *drv, char *path)
   */
 uint8_t FATFS_UnLinkDriverEx(char *path, uint8_t lun)
 { 
+  UNUSED(lun);
+
   uint8_t DiskNum = 0;
   uint8_t ret = 1;
   
