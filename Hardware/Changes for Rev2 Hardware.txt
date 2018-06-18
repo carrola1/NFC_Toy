@@ -3,3 +3,5 @@
 - I2C data and clock test point silk screen labels are swapped
 - Consider increasing size of mounting holes
 - GAIN_SLOT and AUDIO_SD_N signals are swapped on the audio amplifier
+- May be good to increase mounting hole diameter
+- Could probably decrease size of regulator inductor

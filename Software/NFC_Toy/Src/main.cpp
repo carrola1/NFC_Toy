@@ -49,7 +49,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.hpp"
 #include "stm32l0xx_hal.h"
-#include "fatfs.h"
+#include "diskio.h"
+#include "ff.h"
 #include "i2c.h"
 #include "i2s.h"
 #include "spi.h"
@@ -66,7 +67,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-FATFS diskHandle;
+FATFS FatFs;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,9 +114,11 @@ int main(void)
   MX_I2C1_Init();
   MX_I2S2_Init();
   MX_SPI1_Init();
-  SD_SPI_Configure(SD_CS_GPIO_Port, SD_CS_Pin, &hspi1);
-  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
+  FIL fil;        /* File object */
+  char line[100]; /* Line buffer */
+  FRESULT fr;     /* FatFs return code */
+  
   DotStar ring = DotStar(16, DOTSTAR_RBG);
   ring.begin(); // Initialize pins for output
   RGB_VALS ring_rgb;
@@ -125,21 +128,27 @@ int main(void)
   //LIS3DH accel = LIS3DH();
   //accel.begin(0x32);
 
-  uint16_t sound[128] = {0, 0,   803, 0,  1598, 0,  2378, 0,  3135, 0,  3862, 0,  4551, 0,
-	         5197, 0,  5792, 0,  6332, 0,  6811, 0,  7224, 0,  7568, 0,  7839, 0,
-	         8034, 0,  8152, 0,  8192, 0,  8152, 0,  8034, 0,  7839, 0,  7568, 0,
-	         7224, 0,  6811, 0,  6332, 0,  5792, 0,  5197, 0,  4551, 0,  3862, 0,
-	         3135, 0,  2378, 0,  1598, 0,   803, 0,     0, 0, 15581, 0, 14786, 0,
-	        14006, 0, 13249, 0, 12522, 0, 11833, 0, 11187, 0, 10591, 0, 10052, 0,
-	         9572, 0,  9159, 0,  8816, 0,  8545, 0,  8350, 0,  8232, 0,  8192, 0,
-	         8232, 0,  8350, 0,  8545, 0,  8816, 0,  9159, 0,  9572, 0, 10052, 0,
-	        10591, 0, 11187, 0, 11833, 0, 12522, 0, 13249, 0, 14006, 0, 14786, 0,
-	        15581, 0};
+  uint8_t audio_samp[2];
+  uint16_t audio_buf_0[256];
+  UINT bytes_read;
   HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_SET);
 
   HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
-  FRESULT mount_res = f_mount(&diskHandle, "0:", 1);
+  fr = f_mount(&FatFs, "", 1);
+  fr = f_open(&fil, "red.wav", FA_READ);
+  f_lseek(&fil, 76); // move to data region
+  uint8_t buf_ind = 0;
+  while (buf_ind < 256) {
+    f_read(&fil, &audio_samp[0], 2, &bytes_read);
+    audio_buf_0[buf_ind] = (audio_samp[0] << 8) + audio_samp[1];
+    buf_ind ++;
+    if (audio_buf_0[buf_ind] == 10) {
+      HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);  
+    }
+  }
 
+  /* Close the file */
+  f_close(&fil);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -163,7 +172,7 @@ int main(void)
 		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
 	}
 
-	if (mount_res == FR_OK) {
+	if (fr == FR_OK) {
 		HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
 	}
 	HAL_Delay(200);
