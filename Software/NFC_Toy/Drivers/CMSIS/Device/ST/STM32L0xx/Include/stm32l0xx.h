@@ -86,7 +86,7 @@
   /* #define STM32L031xx */   /*!< STM32L031C6, STM32L031E6, STM32L031F6, STM32L031G6, STM32L031K6 Devices */
   /* #define STM32L041xx */   /*!< STM32L041C6, STM32L041E6, STM32L041F6, STM32L041G6, STM32L041K6 Devices */
   /* #define STM32L051xx */   /*!< STM32L051K8, STM32L051C6, STM32L051C8, STM32L051R6, STM32L051R8 Devices */
-  /* #define STM32L052xx */   /*!< STM32L052K6, STM32L052K8, STM32L052C6, STM32L052C8, STM32L052R6, STM32L052R8 Devices */
+   #define STM32L052xx   /*!< STM32L052K6, STM32L052K8, STM32L052C6, STM32L052C8, STM32L052R6, STM32L052R8 Devices */
   /* #define STM32L053xx */   /*!< STM32L053C6, STM32L053C8, STM32L053R6, STM32L053R8 Devices */
   /* #define STM32L061xx */   /*!< */
   /* #define STM32L062xx */   /*!< STM32L062K8 */
@@ -130,9 +130,41 @@
 /** @addtogroup Device_Included
   * @{
   */
-
-#include "stm32l052xx.h"
-
+#if defined(STM32L011xx)
+  #include "stm32l011xx.h"
+#elif defined(STM32L021xx)
+  #include "stm32l021xx.h"
+#elif defined(STM32L031xx)
+  #include "stm32l031xx.h"
+#elif defined(STM32L041xx)
+  #include "stm32l041xx.h"
+#elif defined(STM32L051xx)
+  #include "stm32l051xx.h"
+#elif defined(STM32L052xx)
+  #include "stm32l052xx.h"
+#elif defined(STM32L053xx)
+  #include "stm32l053xx.h"
+#elif defined(STM32L062xx)
+  #include "stm32l062xx.h"
+#elif defined(STM32L063xx)
+  #include "stm32l063xx.h"
+#elif defined(STM32L061xx)
+  #include "stm32l061xx.h"
+#elif defined(STM32L071xx)
+  #include "stm32l071xx.h"
+#elif defined(STM32L072xx)
+  #include "stm32l072xx.h"
+#elif defined(STM32L073xx)
+  #include "stm32l073xx.h"
+#elif defined(STM32L082xx)
+  #include "stm32l082xx.h"
+#elif defined(STM32L083xx)
+  #include "stm32l083xx.h"
+#elif defined(STM32L081xx)
+  #include "stm32l081xx.h"
+#else
+ #error "Please select first the target STM32L0xx device used in your application (in stm32l0xx.h file)"
+#endif
 
 /**
   * @}

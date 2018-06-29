@@ -47,8 +47,9 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
-#include "main.hpp"
+#include "main.h"
 #include "stm32l0xx_hal.h"
+#include "dma.h"
 #include "diskio.h"
 #include "ff.h"
 #include "i2c.h"
@@ -58,6 +59,8 @@
 #include "dotstar.hpp"
 #include "ring_effects.hpp"
 #include "lis3dh.hpp"
+#include "wav_player.h"
+#include "pn532.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -111,44 +114,29 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_I2C1_Init();
   MX_I2S2_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  FIL fil;        /* File object */
-  char line[100]; /* Line buffer */
   FRESULT fr;     /* FatFs return code */
   
-  DotStar ring = DotStar(16, DOTSTAR_RBG);
-  ring.begin(); // Initialize pins for output
-  RGB_VALS ring_rgb;
+  //DotStar ring = DotStar(16, DOTSTAR_RBG);
+  //ring.begin(); // Initialize pins for output
+  //RGB_VALS ring_rgb;
   //ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 0;
   //ring_set_all_pixels(ring, ring_rgb); // Initialize LEDs to off
 
   //LIS3DH accel = LIS3DH();
   //accel.begin(0x32);
 
-  uint8_t audio_samp[2];
-  uint16_t audio_buf_0[256];
-  UINT bytes_read;
-  HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_SET);
-
   HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
   fr = f_mount(&FatFs, "", 1);
-  fr = f_open(&fil, "red.wav", FA_READ);
-  f_lseek(&fil, 76); // move to data region
-  uint8_t buf_ind = 0;
-  while (buf_ind < 256) {
-    f_read(&fil, &audio_samp[0], 2, &bytes_read);
-    audio_buf_0[buf_ind] = (audio_samp[0] << 8) + audio_samp[1];
-    buf_ind ++;
-    if (audio_buf_0[buf_ind] == 10) {
-      HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);  
-    }
-  }
+  //play_wav();
 
-  /* Close the file */
-  f_close(&fil);
+  PN532 nfc = PN532();
+  nfc.begin();
+  uint32_t versiondata = nfc.getFirmwareVersion();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -164,7 +152,6 @@ int main(void)
     //ring_rgbr = 0; ring_rgbg = 0; ring_rgbb = 220;
     //ring_loop_animation(ring, 1, ring_rgb);
     //accelread();
-    //HAL_I2S_Transmit(&hi2s2, &sound[0], 128, HAL_MAX_DELAY);
 	GPIO_PinState sd_present = HAL_GPIO_ReadPin(SD_SW_GPIO_Port, SD_SW_Pin);
 	if (sd_present == GPIO_PIN_RESET) {
 		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_SET);
@@ -172,7 +159,7 @@ int main(void)
 		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
 	}
 
-	if (fr == FR_OK) {
+	if (versiondata == 5) {
 		HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
 	}
 	HAL_Delay(200);
@@ -193,11 +180,11 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
-    /**Configure the main internal regulator output voltage
+    /**Configure the main internal regulator output voltage 
     */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-    /**Initializes the CPU, AHB and APB busses clocks
+    /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
@@ -208,7 +195,7 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Initializes the CPU, AHB and APB busses clocks
+    /**Initializes the CPU, AHB and APB busses clocks 
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -229,11 +216,11 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Configure the Systick interrupt time
+    /**Configure the Systick interrupt time 
     */
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
-    /**Configure the Systick
+    /**Configure the Systick 
     */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 

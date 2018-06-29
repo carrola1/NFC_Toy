@@ -41,7 +41,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l0xx_hal.h"
-#include "main.hpp"
+#include "main.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
@@ -52,6 +52,7 @@ void HardFault_Handler(void);
 void SVC_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+void DMA1_Channel4_5_6_7_IRQHandler(void);
 
 #ifdef __cplusplus
 }

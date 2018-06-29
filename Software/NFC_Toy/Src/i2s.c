@@ -51,12 +51,14 @@
 #include "i2s.h"
 
 #include "gpio.h"
+#include "dma.h"
 
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
 
 I2S_HandleTypeDef hi2s2;
+DMA_HandleTypeDef hdma_spi2_tx;
 
 /* I2S2 init function */
 void MX_I2S2_Init(void)
@@ -67,7 +69,7 @@ void MX_I2S2_Init(void)
   hi2s2.Init.Standard = I2S_STANDARD_PHILIPS;
   hi2s2.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s2.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
-  hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_16K;
+  hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_44K;
   hi2s2.Init.CPOL = I2S_CPOL_LOW;
   if (HAL_I2S_Init(&hi2s2) != HAL_OK)
   {
@@ -100,6 +102,24 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef* i2sHandle)
     GPIO_InitStruct.Alternate = GPIO_AF0_SPI2;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+    /* I2S2 DMA Init */
+    /* SPI2_TX Init */
+    hdma_spi2_tx.Instance = DMA1_Channel5;
+    hdma_spi2_tx.Init.Request = DMA_REQUEST_2;
+    hdma_spi2_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    hdma_spi2_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_spi2_tx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_spi2_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_spi2_tx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_spi2_tx.Init.Mode = DMA_NORMAL;
+    hdma_spi2_tx.Init.Priority = DMA_PRIORITY_LOW;
+    if (HAL_DMA_Init(&hdma_spi2_tx) != HAL_OK)
+    {
+      _Error_Handler(__FILE__, __LINE__);
+    }
+
+    __HAL_LINKDMA(i2sHandle,hdmatx,hdma_spi2_tx);
+
   /* USER CODE BEGIN SPI2_MspInit 1 */
 
   /* USER CODE END SPI2_MspInit 1 */
@@ -124,6 +144,8 @@ void HAL_I2S_MspDeInit(I2S_HandleTypeDef* i2sHandle)
     */
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_15);
 
+    /* I2S2 DMA DeInit */
+    HAL_DMA_DeInit(i2sHandle->hdmatx);
   /* USER CODE BEGIN SPI2_MspDeInit 1 */
 
   /* USER CODE END SPI2_MspDeInit 1 */

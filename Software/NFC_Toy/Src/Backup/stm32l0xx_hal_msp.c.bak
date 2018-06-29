@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : stm32l0xx_hal_msp.c
+  * Description        : This file provides code for the MSP Initialization 
+  *                      and de-Initialization codes.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -46,67 +46,48 @@
   *
   ******************************************************************************
   */
-
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_HPP__
-#define __MAIN_HPP__
-
 /* Includes ------------------------------------------------------------------*/
+#include "stm32l0xx_hal.h"
 
-/* USER CODE BEGIN Includes */
+extern void _Error_Handler(char *, int);
+/* USER CODE BEGIN 0 */
 
-/* USER CODE END Includes */
-
-/* Private define ------------------------------------------------------------*/
-
-#define AUDIO_SD_N_Pin GPIO_PIN_13
-#define AUDIO_SD_N_GPIO_Port GPIOC
-#define SD_DETECT_Pin GPIO_PIN_2
-#define SD_DETECT_GPIO_Port GPIOA
-#define SD_SW_Pin GPIO_PIN_3
-#define SD_SW_GPIO_Port GPIOA
-#define SD_CS_Pin GPIO_PIN_4
-#define SD_CS_GPIO_Port GPIOA
-#define DOT_STAR_DATA_Pin GPIO_PIN_0
-#define DOT_STAR_DATA_GPIO_Port GPIOB
-#define DOT_STAR_CLK_Pin GPIO_PIN_1
-#define DOT_STAR_CLK_GPIO_Port GPIOB
-#define LED_1_Pin GPIO_PIN_10
-#define LED_1_GPIO_Port GPIOA
-#define LED_2_Pin GPIO_PIN_11
-#define LED_2_GPIO_Port GPIOA
-#define XL_INT_1_Pin GPIO_PIN_15
-#define XL_INT_1_GPIO_Port GPIOA
-#define XL_INT_2_Pin GPIO_PIN_3
-#define XL_INT_2_GPIO_Port GPIOB
-#define NFC_RST_PDN_N_Pin GPIO_PIN_4
-#define NFC_RST_PDN_N_GPIO_Port GPIOB
-#define NFC_RST_N_Pin GPIO_PIN_8
-#define NFC_RST_N_GPIO_Port GPIOB
-#define NFC_IRQ_Pin GPIO_PIN_9
-#define NFC_IRQ_GPIO_Port GPIOB
-
-/* ########################## Assert Selection ############################## */
+/* USER CODE END 0 */
 /**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
+  * Initializes the Global MSP.
   */
-/* #define USE_FULL_ASSERT    1U */
+void HAL_MspInit(void)
+{
+  /* USER CODE BEGIN MspInit 0 */
 
-/* USER CODE BEGIN Private defines */
+  /* USER CODE END MspInit 0 */
 
-/* USER CODE END Private defines */
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
+  __HAL_RCC_PWR_CLK_ENABLE();
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
+  /* System interrupt init*/
+  /* SVC_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SVC_IRQn, 0, 0);
+  /* PendSV_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
-#ifdef __cplusplus
+  /* USER CODE BEGIN MspInit 1 */
+
+  /* USER CODE END MspInit 1 */
 }
-#endif
 
-#endif /* __MAIN_HPP__ */
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
