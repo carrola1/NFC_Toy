@@ -10,14 +10,13 @@
 #include "ff.h"
 #include "i2s.h"
 
-const uint16_t buf_size = 512;
+const uint16_t buf_size = 256;
 
-uint8_t audio_samp[2];
-uint16_t audio_buf_0[512];
-uint16_t audio_buf_1[512];
+uint8_t wav_buf[512];
+uint16_t audio_buf_0[256];
+uint16_t audio_buf_1[256];
 uint16_t *ptr;
 uint16_t *ptr_start;
-uint16_t *ptr_end;
 UINT bytes_read;
 
 FRESULT fr;     /* FatFs return code */

@@ -27,6 +27,7 @@ enum sd_speed { SD_SPEED_INVALID, SD_SPEED_400KHZ, SD_SPEED_25MHZ };
 
 
 static void spi_set_speed(enum sd_speed speed);
+static volatile uint8_t dma_complete;
 
 
 int hwif_init(hwif* hw);

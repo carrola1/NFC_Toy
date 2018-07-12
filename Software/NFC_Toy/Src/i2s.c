@@ -70,7 +70,7 @@ void MX_I2S2_Init(void)
   hi2s2.Init.DataFormat = I2S_DATAFORMAT_16B;
   hi2s2.Init.MCLKOutput = I2S_MCLKOUTPUT_DISABLE;
   hi2s2.Init.AudioFreq = I2S_AUDIOFREQ_44K;
-  hi2s2.Init.CPOL = I2S_CPOL_LOW;
+  hi2s2.Init.CPOL = I2S_CPOL_HIGH;
   if (HAL_I2S_Init(&hi2s2) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
