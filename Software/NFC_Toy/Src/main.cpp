@@ -61,6 +61,7 @@
 #include "lis3dh.hpp"
 #include "wav_player.h"
 #include "pn532.h"
+#include "tag_ids.hpp"
 
 /* USER CODE BEGIN Includes */
 
@@ -119,25 +120,36 @@ int main(void)
   MX_I2S2_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  FRESULT fr;     /* FatFs return code */
-  
+
+  // Setup accelerometer
+  //LIS3DH accel = LIS3DH();
+  //accel.begin(0x32);
+
+  // Setup and initialize Dotstars
   DotStar ring = DotStar(16, DOTSTAR_RBG);
   ring.begin(); // Initialize pins for output
   RGB_VALS ring_rgb;
   ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 0;
   ring_set_all_pixels(ring, ring_rgb); // Initialize LEDs to off
+  RGB_VALS rgb_default; 
+  rgb_default.r = 66; rgb_default.g = 244; rgb_default.b = 137;
+  ring_rgb = rgb_default;
 
-  //LIS3DH accel = LIS3DH();
-  //accel.begin(0x32);
-
+  // Mount SD Card
+  FRESULT fr;     /* FatFs return code */
   HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_SET);
   fr = f_mount(&FatFs, "", 1);
-  play_wav();
 
+  // Setup NFC Reader
+  HAL_GPIO_WritePin(NFC_RST_PDN_N_GPIO_Port, NFC_RST_PDN_N_Pin, GPIO_PIN_SET);
   PN532 nfc = PN532();
   nfc.begin();
-  uint32_t versiondata = nfc.getFirmwareVersion();
   nfc.SAMConfig();
+  uint8_t nfc_found;
+  uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+  uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
+  struct tag tag_found;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -148,41 +160,17 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-    //HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
-    //HAL_GPIO_TogglePin(LED_2_GPIO_Port, LED_2_Pin);
-    //ring_rgbr = 0; ring_rgbg = 0; ring_rgbb = 220;
-    //ring_loop_animation(ring, 1, ring_rgb);
-    //accelread();
-	/*GPIO_PinState sd_present = HAL_GPIO_ReadPin(SD_SW_GPIO_Port, SD_SW_Pin);
-	if (sd_present == GPIO_PIN_RESET) {
-		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_SET);
-	} else {
-		HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
-	}*/
-
-  uint8_t success;
-  uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
-  uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
     
-  // Wait for an ISO14443A type cards (Mifare, etc.).  When one is found
-  // 'uid' will be populated with the UID, and uidLength will indicate
-  // if the uid is 4 bytes (Mifare Classic) or 7 bytes (Mifare Ultralight)
-  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
-  if (success) {
-    ring_rgb.r = 0; ring_rgb.g = 0; ring_rgb.b = 220;
     ring_loop_animation(ring, 1, ring_rgb);
-    //uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-    //success = nfc.mifareclassic_AuthenticateBlock(uid, uidLength, 4, 0, keya);
-    //if (success) {
-      //uint8_t nfc_data[16];
-      //nfc.mifareclassic_ReadDataBlock (4, nfc_data);
-      //if (nfc_data[0] == 3) {
-      //  HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
-      //}
-    //}
-  }
-  HAL_Delay(200);
-
+    
+    nfc_found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 60);
+    if (nfc_found) {
+      tag_found = find_tag(uid);
+	  ring_loop_animation(ring, 1, tag_found.rgb);
+	  //ring_set_all_pixels(ring, tag_found.rgb);
+	  play_wav();
+	  ring_rgb = rgb_default;
+    }
 
   }
   /* USER CODE END 3 */

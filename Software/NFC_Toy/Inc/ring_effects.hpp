@@ -1,5 +1,5 @@
-#ifndef RING_EFFECTS_H
-#define RING_EFFECTS_H
+#ifndef RING_EFFECTS_HPP
+#define RING_EFFECTS_HPP
 
 #include "dotstar.hpp"
 
