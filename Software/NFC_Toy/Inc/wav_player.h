@@ -21,7 +21,7 @@ UINT bytes_read;
 
 FRESULT fr;     /* FatFs return code */
 
-void play_wav(void);
+void play_wav(char wav_file[32]);
 
 
 #ifdef __cplusplus

@@ -79,7 +79,6 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -122,8 +121,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Setup accelerometer
-  //LIS3DH accel = LIS3DH();
-  //accel.begin(0x32);
+  LIS3DH accel = LIS3DH();
+  accel.begin(0x32);
+  accel.writeRegister8(LIS3DH_REG_INT1CFG, 0x2A);
+  accel.writeRegister8(LIS3DH_REG_INT1THS, 0xBF);
+  accel.writeRegister8(LIS3DH_REG_INT1DUR, 0x30);
+  accel.writeRegister8(LIS3DH_REG_CTRL3, 0x40);
+
 
   // Setup and initialize Dotstars
   DotStar ring = DotStar(16, DOTSTAR_RBG);
@@ -150,6 +154,8 @@ int main(void)
   uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
   struct tag tag_found;
 
+  uint8_t sleep_timer = 0;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -157,19 +163,32 @@ int main(void)
   while (1)
   {
 
-  /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-  /* USER CODE BEGIN 3 */
-    
+    /* USER CODE BEGIN 3 */
+
+    // put system to sleep if no accelerometer activity
+    if (sleep_timer == 100) {
+      sleep_timer = 0;
+      /* Enter the Sleep mode */
+      SysTick->CTRL = 0x00000004;
+      HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+      SysTick->CTRL = 0x00000007;
+    } else {
+      sleep_timer++;
+    }
+
     ring_loop_animation(ring, 1, ring_rgb);
     
-    nfc_found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 60);
+    nfc_found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 40);
     if (nfc_found) {
       tag_found = find_tag(uid);
-	  ring_loop_animation(ring, 1, tag_found.rgb);
-	  //ring_set_all_pixels(ring, tag_found.rgb);
-	  play_wav();
-	  ring_rgb = rgb_default;
+	    ring_loop_animation(ring, 1, tag_found.rgb);
+      ring.setBrightness(50);
+	    ring_set_all_pixels(ring, tag_found.rgb);
+      ring.setBrightness(255);
+	    play_wav(tag_found.wav_file);
+	    ring_rgb = rgb_default;
     }
 
   }
@@ -240,7 +259,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /**

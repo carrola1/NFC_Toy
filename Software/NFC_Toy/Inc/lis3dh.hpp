@@ -124,10 +124,10 @@ class LIS3DH {
 
   uint8_t data_buf [8];
 
- private:
   uint8_t readRegister8(uint8_t reg);
   void writeRegister8(uint8_t reg, uint8_t value);
 
+ private:
   int8_t  _i2caddr;
 
 };

@@ -1,9 +1,9 @@
 #include "wav_player.h"
 
-void play_wav(void) {
+void play_wav(char wav_file[32]) {
     HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_SET);
     FIL fil;                                // Create file object
-    fr = f_open(&fil, "red.wav", FA_READ);  // open file
+    fr = f_open(&fil, wav_file, FA_READ);  // open file
     //f_lseek(&fil, 76);                      // move to data region of .wav
     ptr = audio_buf_0;        // point to buffer 0 first
     ptr_start = audio_buf_0;
