@@ -1,0 +1,26 @@
+PCB
+    - 126 x 61.4 mm
+    - 9 mm max height (programming header)
+
+Mounting Holes
+    - 2.5 mm diam
+    - centers are 3 mm from all edges
+    - Use M2 screws
+
+Battery holder
+    - part #: PRT-09925 (Sparkfun)
+    - 67.9 x 32.8 mm 
+    - 18.25 mm height
+
+Speaker
+    - part #: AS04004PO-2-WR-R
+    - 28.5 x 40 mm
+    - 11.3 mm height
+    - Mounting holes:
+        * 3 mm diam
+        * centers are 3.2 mm from edges
+
+Total enclosure size (empty space)
+    - Length = 176 mm (PCB + Speaker + 5 mm per side)
+    - Width = 72 mm (PCB + 5 mm per side) 
+    - Height = 28 mm (20 mm battery + 2 mm screw + 3 mm PCB + 5 mm clearance)

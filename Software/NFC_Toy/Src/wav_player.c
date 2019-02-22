@@ -12,9 +12,9 @@ void play_wav(char wav_file[32]) {
         f_read(&fil, &wav_buf[0], 512, &bytes_read);
 
         //////////// End of File ////////////
-        if (bytes_read < 2) {
+        if (bytes_read < 512) {
             f_close(&fil);
-            HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(AUDIO_SD_N_GPIO_Port, AUDIO_SD_N_Pin, GPIO_PIN_RESET);
             return;
         }
         //////////// End of File ////////////

@@ -5,3 +5,8 @@
 - GAIN_SLOT and AUDIO_SD_N signals are swapped on the audio amplifier
 - May be good to increase mounting hole diameter
 - Could probably decrease size of regulator inductor
+- Rethink sleep mode power
+    * Use Wake pin on microcontroller 
+    * Consider turning off regulators and running micro straight from battery
+    * DotStars apparently consume about 1 mA even when off.
+    * uC and accelerometer could both run directly from battery
