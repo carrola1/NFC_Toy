@@ -1,0 +1,17 @@
+fat_sd_spi.c:35:16:crc7_one	0	static
+fat_sd_spi.c:139:13:print_r1	16	static
+fat_sd_spi.c:25:16:spi_txrx	32	static
+fat_sd_spi.c:76:13:sd_cmd	16	static
+fat_sd_spi.c:93:16:sd_get_r1	8	static
+fat_sd_spi.c:158:13:sd_nec	8	static
+fat_sd_spi.c:124:16:sd_get_r7	24	static
+fat_sd_spi.c:391:12:sd_read_status.isra.2	16	static
+fat_sd_spi.c:166:12:sd_init.isra.1	48	static
+fat_sd_spi.c:47:9:crc7	16	static
+fat_sd_spi.c:64:10:crc16	12	static
+fat_sd_spi.c:409:12:sd_get_data.isra.3	24	static
+fat_sd_spi.c:617:12:sd_readsector.isra.5	32	static
+fat_sd_spi.c:655:12:sd_writesector.isra.7	16	static
+fat_sd_spi.c:701:5:hwif_init	176	static
+fat_sd_spi.c:728:5:sd_read	32	static
+fat_sd_spi.c:750:5:sd_write	32	static
