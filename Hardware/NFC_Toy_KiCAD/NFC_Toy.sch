@@ -1,50 +1,6 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:stm32
-LIBS:JLink_Mini
-LIBS:STM32L062K8
-LIBS:Pad
-LIBS:LIS3DH
-LIBS:TPS61030
-LIBS:MIC5225
-LIBS:STM32L0-LQFP48
-LIBS:MAX98357
-LIBS:Micro SD 503182-1852
-LIBS:PN532
-LIBS:Oscillator
-LIBS:APA102
-LIBS:SN74LVC2T45
-LIBS:mechanical
+EESchema Schematic File Version 4
 LIBS:NFC_Toy-cache
-EELAYER 25 0
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -59,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L PWR_FLAG #FLG01
+L power:PWR_FLAG #FLG01
 U 1 1 5AC60AD5
 P 8890 990
 F 0 "#FLG01" H 8890 1065 50  0001 C CNN
@@ -70,7 +26,7 @@ F 3 "" H 8890 990 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L +BATT #PWR02
+L power:+BATT #PWR02
 U 1 1 5AC60AE5
 P 8890 840
 F 0 "#PWR02" H 8890 690 50  0001 C CNN
@@ -81,7 +37,7 @@ F 3 "" H 8890 840 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L JLink_Mini J3
+L JLink_Mini:JLink_Mini J3
 U 1 1 5AC76528
 P 9130 3530
 F 0 "J3" H 9130 3430 50  0000 C CNN
@@ -92,7 +48,7 @@ F 3 "DOCUMENTATION" H 9130 3530 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR03
+L power:GND #PWR03
 U 1 1 5AC767C5
 P 8180 3580
 F 0 "#PWR03" H 8180 3330 50  0001 C CNN
@@ -106,7 +62,7 @@ NoConn ~ 8380 3630
 NoConn ~ 8380 3730
 NoConn ~ 9880 3530
 $Comp
-L R R10
+L Device:R R10
 U 1 1 5AC7683D
 P 10430 3430
 F 0 "R10" V 10510 3430 50  0000 C CNN
@@ -123,7 +79,7 @@ SWCLK
 Text GLabel 9930 3730 2    47   Output ~ 0
 nRST
 $Comp
-L R R4
+L Device:R R4
 U 1 1 5AC7A59A
 P 2070 4880
 F 0 "R4" V 2150 4880 50  0000 C CNN
@@ -134,7 +90,7 @@ F 3 "" H 2070 4880 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Pad J1
+L Pad:Pad J1
 U 1 1 5ACB5534
 P 1110 1280
 F 0 "J1" H 1110 1080 60  0000 C CNN
@@ -145,7 +101,7 @@ F 3 "" H 1110 1280 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +BATT #PWR04
+L power:+BATT #PWR04
 U 1 1 5ACB5662
 P 1460 1180
 F 0 "#PWR04" H 1460 1030 50  0001 C CNN
@@ -156,7 +112,7 @@ F 3 "" H 1460 1180 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Pad J2
+L Pad:Pad J2
 U 1 1 5ACB567C
 P 1110 1630
 F 0 "J2" H 1110 1430 60  0000 C CNN
@@ -167,7 +123,7 @@ F 3 "" H 1110 1630 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR05
+L power:GND #PWR05
 U 1 1 5ACB56A8
 P 1460 1780
 F 0 "#PWR05" H 1460 1530 50  0001 C CNN
@@ -178,7 +134,7 @@ F 3 "" H 1460 1780 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C5
+L Device:C C5
 U 1 1 5ACB570B
 P 1660 1430
 F 0 "C5" H 1685 1530 50  0000 L CNN
@@ -189,7 +145,7 @@ F 3 "" H 1660 1430 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C7
+L Device:C C7
 U 1 1 5ACB5795
 P 2010 1430
 F 0 "C7" H 2035 1530 50  0000 L CNN
@@ -200,7 +156,7 @@ F 3 "" H 2010 1430 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R3
+L Device:R R3
 U 1 1 5ACB59B1
 P 2070 4480
 F 0 "R3" V 2150 4480 50  0000 C CNN
@@ -211,7 +167,7 @@ F 3 "" H 2070 4480 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LIS3DH U3
+L LIS3DH:LIS3DH U3
 U 1 1 5ACB5B96
 P 9290 5450
 F 0 "U3" H 8740 4900 60  0000 C CNN
@@ -222,7 +178,7 @@ F 3 "" H 9290 5350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L TPS61030 U1
+L TPS61030:TPS61030 U1
 U 1 1 5ACCAAAB
 P 3410 2030
 F 0 "U1" H 3195 3103 50  0000 L BNN
@@ -238,7 +194,7 @@ F 8 "Adjustable 4-A Switch 96% Efficient Boost Converter w/20µA Iq in TSSOP-1
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C8
+L Device:C C8
 U 1 1 5ACCAE59
 P 4310 1830
 F 0 "C8" H 4335 1930 50  0000 L CNN
@@ -249,7 +205,7 @@ F 3 "" H 4310 1830 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L L L1
+L Device:L L1
 U 1 1 5ACCB278
 P 2210 1830
 F 0 "L1" V 2160 1830 50  0000 C CNN
@@ -260,7 +216,7 @@ F 3 "" H 2210 1830 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R5
+L Device:R R5
 U 1 1 5ACCB319
 P 2360 1530
 F 0 "R5" V 2440 1530 50  0000 C CNN
@@ -271,7 +227,7 @@ F 3 "" H 2360 1530 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R6
+L Device:R R6
 U 1 1 5ACCBCDB
 P 2360 2330
 F 0 "R6" V 2440 2330 50  0000 C CNN
@@ -282,7 +238,7 @@ F 3 "" H 2360 2330 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR06
+L power:GND #PWR06
 U 1 1 5ACCBDC0
 P 2360 2580
 F 0 "#PWR06" H 2360 2330 50  0001 C CNN
@@ -294,7 +250,7 @@ F 3 "" H 2360 2580 50  0001 C CNN
 $EndComp
 NoConn ~ 2710 1530
 $Comp
-L GND #PWR07
+L power:GND #PWR07
 U 1 1 5ACCBEA1
 P 2510 1830
 F 0 "#PWR07" H 2510 1580 50  0001 C CNN
@@ -305,7 +261,7 @@ F 3 "" H 2510 1830 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR08
+L power:GND #PWR08
 U 1 1 5ACCBF25
 P 2560 3080
 F 0 "#PWR08" H 2560 2830 50  0001 C CNN
@@ -316,7 +272,7 @@ F 3 "" H 2560 3080 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C9
+L Device:CP1 C9
 U 1 1 5ACCC33F
 P 4710 1830
 F 0 "C9" H 4735 1930 50  0000 L CNN
@@ -327,7 +283,7 @@ F 3 "" H 4710 1830 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR09
+L power:GND #PWR09
 U 1 1 5ACCC3FF
 P 4310 2030
 F 0 "#PWR09" H 4310 1780 50  0001 C CNN
@@ -338,7 +294,7 @@ F 3 "" H 4310 2030 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR010
+L power:GND #PWR010
 U 1 1 5ACCC43A
 P 4710 2030
 F 0 "#PWR010" H 4710 1780 50  0001 C CNN
@@ -349,7 +305,7 @@ F 3 "" H 4710 2030 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R7
+L Device:R R7
 U 1 1 5ACCC7D9
 P 4210 1080
 F 0 "R7" V 4290 1080 50  0000 C CNN
@@ -362,7 +318,7 @@ $EndComp
 Text Notes 2910 980  2    60   ~ 0
 LBI Threshold = 500mV\nSet to trigger at Vbat = 2V
 $Comp
-L +5V #PWR011
+L power:+5V #PWR011
 U 1 1 5ACCCAD2
 P 4710 1530
 F 0 "#PWR011" H 4710 1380 50  0001 C CNN
@@ -373,7 +329,7 @@ F 3 "" H 4710 1530 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L MIC5225 U19
+L MIC5225:MIC5225 U19
 U 1 1 5ACCCEFB
 P 5410 1630
 F 0 "U19" H 6012 1831 50  0000 L BNN
@@ -389,7 +345,7 @@ F 8 "0.38 USD" H 5410 1630 50  0001 L BNN "Field8"
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR012
+L power:GND #PWR012
 U 1 1 5ACCD2D2
 P 5360 2030
 F 0 "#PWR012" H 5360 1780 50  0001 C CNN
@@ -400,7 +356,7 @@ F 3 "" H 5360 2030 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C10
+L Device:C C10
 U 1 1 5ACCD3E5
 P 5060 1830
 F 0 "C10" H 5085 1930 50  0000 L CNN
@@ -411,7 +367,7 @@ F 3 "" H 5060 1830 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR013
+L power:GND #PWR013
 U 1 1 5ACCD43E
 P 5060 2030
 F 0 "#PWR013" H 5060 1780 50  0001 C CNN
@@ -423,7 +379,7 @@ F 3 "" H 5060 2030 50  0001 C CNN
 $EndComp
 NoConn ~ 6610 1630
 $Comp
-L C C11
+L Device:C C11
 U 1 1 5ACCD60A
 P 6810 1930
 F 0 "C11" H 6835 2030 50  0000 L CNN
@@ -434,7 +390,7 @@ F 3 "" H 6810 1930 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR014
+L power:GND #PWR014
 U 1 1 5ACCD66A
 P 6810 2180
 F 0 "#PWR014" H 6810 1930 50  0001 C CNN
@@ -445,7 +401,7 @@ F 3 "" H 6810 2180 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR015
+L power:+3.3V #PWR015
 U 1 1 5ACCD783
 P 6810 1680
 F 0 "#PWR015" H 6810 1530 50  0001 C CNN
@@ -456,7 +412,7 @@ F 3 "" H 6810 1680 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR016
+L power:+3.3V #PWR016
 U 1 1 5ACCDE22
 P 4210 930
 F 0 "#PWR016" H 4210 780 50  0001 C CNN
@@ -467,7 +423,7 @@ F 3 "" H 4210 930 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR017
+L power:+3.3V #PWR017
 U 1 1 5ACCDE93
 P 8380 3130
 F 0 "#PWR017" H 8380 2980 50  0001 C CNN
@@ -478,7 +434,7 @@ F 3 "" H 8380 3130 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR018
+L power:+3.3V #PWR018
 U 1 1 5ACCDEDA
 P 10430 3130
 F 0 "#PWR018" H 10430 2980 50  0001 C CNN
@@ -489,7 +445,7 @@ F 3 "" H 10430 3130 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L STM32L0-LQFP48 U2
+L STM32L0-LQFP48:STM32L0-LQFP48 U2
 U 1 1 5ACD107D
 P 4260 5530
 F 0 "U2" H 3996 7231 50  0000 L BNN
@@ -515,7 +471,7 @@ I2C_SCL
 Text GLabel 7060 4830 2    47   BiDi ~ 0
 I2C_SDA
 $Comp
-L +3.3V #PWR019
+L power:+3.3V #PWR019
 U 1 1 5ACD1B04
 P 2560 4080
 F 0 "#PWR019" H 2560 3930 50  0001 C CNN
@@ -526,7 +482,7 @@ F 3 "" H 2560 4080 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR020
+L power:GND #PWR020
 U 1 1 5ACD1E7D
 P 2510 7180
 F 0 "#PWR020" H 2510 6930 50  0001 C CNN
@@ -537,7 +493,7 @@ F 3 "" H 2510 7180 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR021
+L power:+3.3V #PWR021
 U 1 1 5ACD275B
 P 2070 4180
 F 0 "#PWR021" H 2070 4030 50  0001 C CNN
@@ -565,7 +521,7 @@ $EndSheet
 Text GLabel 1460 5330 0    47   Output ~ 0
 SPI_NSS
 $Comp
-L GND #PWR022
+L power:GND #PWR022
 U 1 1 5ACE0183
 P 2070 5030
 F 0 "#PWR022" H 2070 4780 50  0001 C CNN
@@ -592,7 +548,7 @@ F0 "NFC" 60
 F1 "NFC_Toy_NFC.sch" 60
 $EndSheet
 $Comp
-L R R8
+L Device:R R8
 U 1 1 5ACE3F31
 P 6710 4480
 F 0 "R8" V 6790 4480 50  0000 C CNN
@@ -603,7 +559,7 @@ F 3 "" H 6710 4480 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R9
+L Device:R R9
 U 1 1 5ACE406D
 P 6940 4480
 F 0 "R9" V 7020 4480 50  0000 C CNN
@@ -614,7 +570,7 @@ F 3 "" H 6940 4480 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR023
+L power:+3.3V #PWR023
 U 1 1 5ACE42C4
 P 6810 4230
 F 0 "#PWR023" H 6810 4080 50  0001 C CNN
@@ -631,7 +587,7 @@ NFC_RST_PDN_N
 Text GLabel 5960 5030 2    47   Input ~ 0
 NFC_IRQ
 $Comp
-L C C6
+L Device:C C6
 U 1 1 5ACF4E68
 P 1760 4340
 F 0 "C6" H 1785 4440 50  0000 L CNN
@@ -642,7 +598,7 @@ F 3 "" H 1760 4340 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C4
+L Device:C C4
 U 1 1 5ACF4FF3
 P 1510 4340
 F 0 "C4" H 1535 4440 50  0000 L CNN
@@ -653,7 +609,7 @@ F 3 "" H 1510 4340 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C3
+L Device:C C3
 U 1 1 5ACF5051
 P 1260 4340
 F 0 "C3" H 1285 4440 50  0000 L CNN
@@ -664,7 +620,7 @@ F 3 "" H 1260 4340 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C2
+L Device:C C2
 U 1 1 5ACF50B2
 P 1010 4340
 F 0 "C2" H 1035 4440 50  0000 L CNN
@@ -675,7 +631,7 @@ F 3 "" H 1010 4340 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C1
+L Device:C C1
 U 1 1 5ACF5116
 P 760 4340
 F 0 "C1" H 785 4440 50  0000 L CNN
@@ -686,7 +642,7 @@ F 3 "" H 760 4340 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR024
+L power:+3.3V #PWR024
 U 1 1 5ACF517D
 P 1760 4090
 F 0 "#PWR024" H 1760 3940 50  0001 C CNN
@@ -697,7 +653,7 @@ F 3 "" H 1760 4090 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR025
+L power:GND #PWR025
 U 1 1 5ACF51D9
 P 1760 4590
 F 0 "#PWR025" H 1760 4340 50  0001 C CNN
@@ -708,7 +664,7 @@ F 3 "" H 1760 4590 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR026
+L power:+3.3V #PWR026
 U 1 1 5ACF60B9
 P 8390 4950
 F 0 "#PWR026" H 8390 4800 50  0001 C CNN
@@ -719,7 +675,7 @@ F 3 "" H 8390 4950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR027
+L power:GND #PWR027
 U 1 1 5ACF62BE
 P 8390 5950
 F 0 "#PWR027" H 8390 5700 50  0001 C CNN
@@ -740,7 +696,7 @@ XL_INT2
 Text GLabel 2560 6630 0    47   Input ~ 0
 XL_INT1
 $Comp
-L +3.3V #PWR028
+L power:+3.3V #PWR028
 U 1 1 5ACF6F04
 P 10290 5500
 F 0 "#PWR028" H 10290 5350 50  0001 C CNN
@@ -754,7 +710,7 @@ NoConn ~ 10090 5650
 Text Notes 10990 6250 2    60   ~ 0
 SA0 pulled up internally
 $Comp
-L C C13
+L Device:C C13
 U 1 1 5ACF7496
 P 8090 5200
 F 0 "C13" H 8115 5300 50  0000 L CNN
@@ -765,7 +721,7 @@ F 3 "" H 8090 5200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C12
+L Device:C C12
 U 1 1 5ACF75B0
 P 7840 5200
 F 0 "C12" H 7865 5300 50  0000 L CNN
@@ -776,7 +732,7 @@ F 3 "" H 7840 5200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR029
+L power:GND #PWR029
 U 1 1 5ACF764A
 P 8090 5400
 F 0 "#PWR029" H 8090 5150 50  0001 C CNN
@@ -801,7 +757,7 @@ XL_INT2
 Text GLabel 10170 5150 2    47   Output ~ 0
 XL_INT1
 $Comp
-L LED D2
+L Device:LED D2
 U 1 1 5AD0FEB3
 P 1660 6880
 F 0 "D2" H 1660 6980 50  0000 C CNN
@@ -812,7 +768,7 @@ F 3 "" H 1660 6880 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L LED D1
+L Device:LED D1
 U 1 1 5AD100A0
 P 1210 6880
 F 0 "D1" H 1210 6980 50  0000 C CNN
@@ -823,7 +779,7 @@ F 3 "" H 1210 6880 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R1
+L Device:R R1
 U 1 1 5AD1017A
 P 1210 6530
 F 0 "R1" V 1290 6530 50  0000 C CNN
@@ -834,7 +790,7 @@ F 3 "" H 1210 6530 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R2
+L Device:R R2
 U 1 1 5AD10320
 P 1660 6530
 F 0 "R2" V 1740 6530 50  0000 C CNN
@@ -845,7 +801,7 @@ F 3 "" H 1660 6530 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR030
+L power:GND #PWR030
 U 1 1 5AD107A6
 P 1660 7080
 F 0 "#PWR030" H 1660 6830 50  0001 C CNN
@@ -856,7 +812,7 @@ F 3 "" H 1660 7080 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR031
+L power:GND #PWR031
 U 1 1 5AD10814
 P 1210 7080
 F 0 "#PWR031" H 1210 6830 50  0001 C CNN
@@ -875,7 +831,7 @@ Accelerometer
 Text Notes 6890 3860 2    118  ~ 0
 uC
 $Comp
-L TEST TP9
+L NFC_Toy-rescue:TEST TP9
 U 1 1 5AD376AB
 P 6700 5730
 F 0 "TP9" H 6700 6030 50  0000 C BNN
@@ -886,7 +842,7 @@ F 3 "" H 6700 5730 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L TEST TP8
+L NFC_Toy-rescue:TEST TP8
 U 1 1 5AD37A1E
 P 6470 5730
 F 0 "TP8" H 6470 6030 50  0000 C BNN
@@ -897,7 +853,7 @@ F 3 "" H 6470 5730 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L TEST TP6
+L NFC_Toy-rescue:TEST TP6
 U 1 1 5AD37AC1
 P 6250 5730
 F 0 "TP6" H 6250 6030 50  0000 C BNN
@@ -908,7 +864,7 @@ F 3 "" H 6250 5730 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L TEST TP7
+L NFC_Toy-rescue:TEST TP7
 U 1 1 5AD37E05
 P 6570 4680
 F 0 "TP7" H 6570 4980 50  0000 C BNN
@@ -919,7 +875,7 @@ F 3 "" H 6570 4680 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L TEST TP10
+L NFC_Toy-rescue:TEST TP10
 U 1 1 5AD37F8B
 P 6940 4980
 F 0 "TP10" H 6940 5280 50  0000 C BNN
@@ -1386,7 +1342,7 @@ Wire Wire Line
 	6940 4830 6940 4980
 Connection ~ 6940 4830
 $Comp
-L TEST TP4
+L NFC_Toy-rescue:TEST TP4
 U 1 1 5AD38C3D
 P 2040 5670
 F 0 "TP4" H 2040 5970 50  0000 C BNN
@@ -1397,7 +1353,7 @@ F 3 "" H 2040 5670 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L TEST TP3
+L NFC_Toy-rescue:TEST TP3
 U 1 1 5AD39269
 P 1860 5670
 F 0 "TP3" H 1860 5970 50  0000 C BNN
@@ -1408,7 +1364,7 @@ F 3 "" H 1860 5670 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L TEST TP2
+L NFC_Toy-rescue:TEST TP2
 U 1 1 5AD3933F
 P 1680 5670
 F 0 "TP2" H 1680 5970 50  0000 C BNN
@@ -1419,7 +1375,7 @@ F 3 "" H 1680 5670 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L TEST TP1
+L NFC_Toy-rescue:TEST TP1
 U 1 1 5AD3949C
 P 1500 5670
 F 0 "TP1" H 1500 5970 50  0000 C BNN
@@ -1447,7 +1403,7 @@ NoConn ~ 2660 5930
 NoConn ~ 2660 5030
 NoConn ~ 2660 4930
 $Comp
-L Mounting_Hole MK1
+L NFC_Toy-rescue:Mounting_Hole MK1
 U 1 1 5ADCBFF1
 P 7970 1710
 F 0 "MK1" H 7970 1910 50  0000 C CNN
@@ -1458,7 +1414,7 @@ F 3 "" H 7970 1710 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mounting_Hole MK3
+L NFC_Toy-rescue:Mounting_Hole MK3
 U 1 1 5ADCC13C
 P 8580 1710
 F 0 "MK3" H 8580 1910 50  0000 C CNN
@@ -1469,7 +1425,7 @@ F 3 "" H 8580 1710 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mounting_Hole MK4
+L NFC_Toy-rescue:Mounting_Hole MK4
 U 1 1 5ADCC2E2
 P 8580 2060
 F 0 "MK4" H 8580 2260 50  0000 C CNN
@@ -1480,7 +1436,7 @@ F 3 "" H 8580 2060 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mounting_Hole MK2
+L NFC_Toy-rescue:Mounting_Hole MK2
 U 1 1 5ADCC3B1
 P 7980 2060
 F 0 "MK2" H 7980 2260 50  0000 C CNN
@@ -1491,7 +1447,7 @@ F 3 "" H 7980 2060 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR032
+L power:GND #PWR032
 U 1 1 5ADE44AB
 P 8330 1000
 F 0 "#PWR032" H 8330 750 50  0001 C CNN
@@ -1502,7 +1458,7 @@ F 3 "" H 8330 1000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PWR_FLAG #FLG033
+L power:PWR_FLAG #FLG033
 U 1 1 5ADE4546
 P 8330 850
 F 0 "#FLG033" H 8330 925 50  0001 C CNN
@@ -1512,10 +1468,6 @@ F 3 "" H 8330 850 50  0001 C CNN
 	1    8330 850 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8330 1000 8330 970 
-Wire Wire Line
-	8330 970  8330 850 
 Wire Wire Line
 	2660 5130 2620 5130
 Wire Wire Line
@@ -1558,4 +1510,6 @@ Wire Wire Line
 Wire Wire Line
 	2710 2630 2560 2630
 Connection ~ 2560 2630
+Wire Wire Line
+	8330 850  8330 1000
 $EndSCHEMATC

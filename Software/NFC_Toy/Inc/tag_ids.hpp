@@ -5,7 +5,7 @@
 #include <string.h>
 #include "ring_effects.hpp"
 
-#define num_tags 5
+#define num_tags 4
 
 struct tag
 {
@@ -17,12 +17,11 @@ struct tag
      char wav_file_color[32];
 };
 
-const tag tag0 = {{0,0,0,0,0,0,0}, {0,0,220}, "unknown", "find_blue_square.wav", "found_blue_square.wav", "test.wav"};
-const tag tag1 = {{165,175,87,201,0,0,0}, {220,80,5}, "orange", "find_orange_star.wav", "found_orange_star.wav", "orange.wav"};
-const tag tag2 = {{37,176,87,201,0,0,0}, {220,0,0}, "red", "find_red_triangle.wav", "found_red_triangle.wav", "red.wav"};
-const tag tag3 = {{133,196,84,106,0,0,0}, {0,220,0}, "green", "find_green_heart.wav", "found_green_heart.wav", "green.wav"};     //green heart
-const tag tag4 = {{69,55,85,106,0,0,0}, {0,0,220}, "blue", "find_blue_square.wav", "found_blue_square.wav", "blue.wav"};         //blue square
-const struct tag tags[num_tags] = {tag0, tag1, tag2, tag3, tag4};
+const tag tag0 = {{165,175,87,201,0,0,0}, {220,80,5}, "orange", "find_orange_star.wav", "found_orange_star.wav", "orange.wav"};
+const tag tag1 = {{37,176,87,201,0,0,0}, {220,0,0}, "red", "find_red_triangle.wav", "found_red_triangle.wav", "red.wav"};
+const tag tag2 = {{133,196,84,106,0,0,0}, {0,220,0}, "green", "find_green_heart.wav", "found_green_heart.wav", "green.wav"};     //green heart
+const tag tag3 = {{69,55,85,106,0,0,0}, {0,0,220}, "blue", "find_blue_square.wav", "found_blue_square.wav", "blue.wav"};         //blue square
+const struct tag tags[num_tags] = {tag0, tag1, tag2, tag3};
 
 struct tag find_tag(uint8_t * uid);
 

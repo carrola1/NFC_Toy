@@ -5,7 +5,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2018 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2019 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -40,7 +40,6 @@
  extern "C" {
 #endif
 
-#include "main.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
@@ -61,7 +60,7 @@
 /*#define HAL_IWDG_MODULE_ENABLED   */
 /*#define HAL_LCD_MODULE_ENABLED   */
 /*#define HAL_LPTIM_MODULE_ENABLED   */
-/*#define HAL_RNG_MODULE_ENABLED   */
+#define HAL_RNG_MODULE_ENABLED
 /*#define HAL_RTC_MODULE_ENABLED   */
 #define HAL_SPI_MODULE_ENABLED
 /*#define HAL_TIM_MODULE_ENABLED   */
@@ -73,6 +72,7 @@
 /*#define HAL_SMBUS_MODULE_ENABLED   */
 /*#define HAL_WWDG_MODULE_ENABLED   */
 /*#define HAL_PCD_MODULE_ENABLED   */
+/*#define HAL_EXTI_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
@@ -170,6 +170,10 @@
 #ifdef HAL_RCC_MODULE_ENABLED
   #include "stm32l0xx_hal_rcc.h"
 #endif /* HAL_RCC_MODULE_ENABLED */
+
+#ifdef HAL_EXTI_MODULE_ENABLED
+  #include "stm32l0xx_hal_exti.h"
+#endif /* HAL_EXTI_MODULE_ENABLED */
 
 #ifdef HAL_GPIO_MODULE_ENABLED
   #include "stm32l0xx_hal_gpio.h"

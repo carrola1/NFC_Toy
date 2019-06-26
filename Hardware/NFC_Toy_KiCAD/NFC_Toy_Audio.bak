@@ -1,50 +1,6 @@
-EESchema Schematic File Version 2
-LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:stm32
-LIBS:JLink_Mini
-LIBS:STM32L062K8
-LIBS:Pad
-LIBS:LIS3DH
-LIBS:TPS61030
-LIBS:MIC5225
-LIBS:STM32L0-LQFP48
-LIBS:MAX98357
-LIBS:Micro SD 503182-1852
-LIBS:PN532
-LIBS:Oscillator
-LIBS:APA102
-LIBS:SN74LVC2T45
-LIBS:mechanical
+EESchema Schematic File Version 4
 LIBS:NFC_Toy-cache
-EELAYER 25 0
+EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -59,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L MAX98357 U4
+L MAX98357:MAX98357 U4
 U 1 1 5ACDFE57
 P 7040 3630
 F 0 "U4" H 7040 3530 50  0000 C CNN
@@ -86,7 +42,7 @@ NoConn ~ 6140 3630
 NoConn ~ 6140 3730
 NoConn ~ 6140 3830
 $Comp
-L GND #PWR034
+L power:GND #PWR034
 U 1 1 5ACDFE68
 P 7040 4580
 F 0 "#PWR034" H 7040 4330 50  0001 C CNN
@@ -97,7 +53,7 @@ F 3 "" H 7040 4580 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR035
+L power:+5V #PWR035
 U 1 1 5ACDFE6E
 P 7090 2380
 F 0 "#PWR035" H 7090 2230 50  0001 C CNN
@@ -128,7 +84,7 @@ AUDIO_SD_N
 Wire Wire Line
 	6040 3330 6140 3330
 $Comp
-L R R11
+L Device:R R11
 U 1 1 5ACDFE7F
 P 5390 3230
 F 0 "R11" V 5470 3230 50  0000 C CNN
@@ -139,7 +95,7 @@ F 3 "" H 5390 3230 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R12
+L Device:R R12
 U 1 1 5ACDFE86
 P 5390 3630
 F 0 "R12" V 5470 3630 50  0000 C CNN
@@ -155,7 +111,7 @@ Wire Wire Line
 	6140 3430 5390 3430
 Connection ~ 5390 3430
 $Comp
-L GND #PWR036
+L power:GND #PWR036
 U 1 1 5ACDFE90
 P 5390 3830
 F 0 "#PWR036" H 5390 3580 50  0001 C CNN
@@ -166,7 +122,7 @@ F 3 "" H 5390 3830 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR037
+L power:+5V #PWR037
 U 1 1 5ACDFE96
 P 5390 3030
 F 0 "#PWR037" H 5390 2880 50  0001 C CNN
@@ -183,7 +139,7 @@ Wire Wire Line
 Text Notes 6290 2980 2    47   ~ 0
 GAIN_SLOT:\n    100k to GND - 15dB\n    GND - 12dB\n    NC - 9dB\n    VDD - 6dB\n    100k to VDD - 3dB
 $Comp
-L Pad J4
+L Pad:Pad J4
 U 1 1 5ACE08A3
 P 8540 3730
 F 0 "J4" H 8540 3530 60  0000 C CNN
@@ -194,7 +150,7 @@ F 3 "" H 8540 3730 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Pad J5
+L Pad:Pad J5
 U 1 1 5ACE08AA
 P 8540 4080
 F 0 "J5" H 8540 3880 60  0000 C CNN
@@ -205,7 +161,7 @@ F 3 "" H 8540 4080 60  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L 503182-1852 J6
+L Micro-SD-503182-1852:503182-1852 J6
 U 1 1 5ACE08EE
 P 3240 3580
 F 0 "J6" H 3240 4303 50  0000 L BNN
@@ -238,7 +194,7 @@ Wire Wire Line
 Wire Wire Line
 	3690 3080 3440 3080
 $Comp
-L +3.3V #PWR038
+L power:+3.3V #PWR038
 U 1 1 5ACE0C10
 P 3590 2450
 F 0 "#PWR038" H 3590 2300 50  0001 C CNN
@@ -266,7 +222,7 @@ Wire Wire Line
 Wire Wire Line
 	3440 3980 3690 3980
 $Comp
-L GND #PWR039
+L power:GND #PWR039
 U 1 1 5ACE0D8F
 P 3590 4230
 F 0 "#PWR039" H 3590 3980 50  0001 C CNN
@@ -292,7 +248,7 @@ Wire Wire Line
 Wire Wire Line
 	8090 4180 8290 4180
 $Comp
-L C C14
+L Device:C C14
 U 1 1 5AD11D71
 P 3780 2640
 F 0 "C14" H 3805 2740 50  0000 L CNN
@@ -303,7 +259,7 @@ F 3 "" H 3780 2640 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR040
+L power:GND #PWR040
 U 1 1 5AD11F0E
 P 3780 2830
 F 0 "#PWR040" H 3780 2580 50  0001 C CNN
@@ -321,7 +277,7 @@ Connection ~ 3590 2470
 Wire Wire Line
 	3780 2790 3780 2830
 $Comp
-L C C15
+L Device:C C15
 U 1 1 5AD1240E
 P 7370 2570
 F 0 "C15" H 7395 2670 50  0000 L CNN
@@ -332,7 +288,7 @@ F 3 "" H 7370 2570 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR041
+L power:GND #PWR041
 U 1 1 5AD12414
 P 7370 2750
 F 0 "#PWR041" H 7370 2500 50  0001 C CNN
@@ -345,7 +301,7 @@ $EndComp
 Wire Wire Line
 	7370 2720 7370 2750
 $Comp
-L C C16
+L Device:C C16
 U 1 1 5AD12566
 P 7700 2570
 F 0 "C16" H 7725 2670 50  0000 L CNN
@@ -356,7 +312,7 @@ F 3 "" H 7700 2570 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR042
+L power:GND #PWR042
 U 1 1 5AD125D7
 P 7700 2760
 F 0 "#PWR042" H 7700 2510 50  0001 C CNN

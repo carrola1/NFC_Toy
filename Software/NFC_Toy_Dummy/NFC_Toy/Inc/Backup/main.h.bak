@@ -75,10 +75,11 @@
 #define LED_1_GPIO_Port GPIOA
 #define LED_2_Pin GPIO_PIN_11
 #define LED_2_GPIO_Port GPIOA
-#define XL_INT_1_Pin GPIO_PIN_15
-#define XL_INT_1_GPIO_Port GPIOA
-#define XL_INT_2_Pin GPIO_PIN_3
-#define XL_INT_2_GPIO_Port GPIOB
+#define XL_INT1_Pin GPIO_PIN_15
+#define XL_INT1_GPIO_Port GPIOA
+#define XL_INT1_EXTI_IRQn EXTI4_15_IRQn
+#define XL_INT2_Pin GPIO_PIN_3
+#define XL_INT2_GPIO_Port GPIOB
 #define NFC_RST_PDN_N_Pin GPIO_PIN_4
 #define NFC_RST_PDN_N_GPIO_Port GPIOB
 #define NFC_RST_N_Pin GPIO_PIN_8

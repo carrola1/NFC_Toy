@@ -56,6 +56,7 @@
 #include "i2s.h"
 #include "spi.h"
 #include "gpio.h"
+#include "rng.h"
 #include "dotstar.hpp"
 #include "ring_effects.hpp"
 #include "lis3dh.hpp"
@@ -118,6 +119,7 @@ int main(void)
   MX_I2C1_Init();
   MX_I2S2_Init();
   MX_SPI1_Init();
+  MX_RNG_Init();
   /* USER CODE BEGIN 2 */
 
   // Setup accelerometer
@@ -151,8 +153,13 @@ int main(void)
   uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
   uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
   struct tag detected_tag;
+  uint32_t randtagid = HAL_RNG_GetRandomNumber(&hrng) % num_tags;
+  struct tag tag_to_find = tags[randtagid];
 
   uint8_t sleep_timer = 0;
+  uint8_t wait_timer_max = 7;
+  uint8_t wait_timer = wait_timer_max-2;
+  uint8_t mode = 1;
 
   /* USER CODE END 2 */
 
@@ -181,6 +188,19 @@ int main(void)
       //sleep_timer++;
     }
 
+    if (mode == 1) {
+      if (wait_timer == wait_timer_max) {
+        ring.setBrightness(5);
+        ring_set_all_pixels(ring, rgb_default);
+        play_wav(tag_to_find.wav_file_find);
+        ring.setBrightness(20);
+        ring_set_all_pixels(ring, rgb_off);
+        wait_timer = 0;
+      } else {
+        wait_timer++;
+      }
+    }
+
     // 360 degree ring animation
     ring_loop_animation(ring, 1, rgb_default);
     
@@ -189,13 +209,25 @@ int main(void)
     if (nfc_found) {
       sleep_timer = 0;
       detected_tag = find_tag(uid);
-	    ring_loop_animation(ring, 1, detected_tag.rgb);
-      ring.setBrightness(80);
-	    ring_set_all_pixels(ring, detected_tag.rgb);
-      ring.setBrightness(255);
-	  play_wav(detected_tag.wav_file_found);
-      play_wav(detected_tag.wav_file_color);
-      ring_set_all_pixels(ring, rgb_off);
+      if ((mode == 1) && (detected_tag.uid[0] != tag_to_find.uid[0])) {
+          ring.setBrightness(5);
+          ring_set_all_pixels(ring, rgb_default);
+          play_wav("try_again.wav");
+          ring.setBrightness(20);
+          ring_set_all_pixels(ring, rgb_off);
+          wait_timer = 0;
+      } else {
+        ring_loop_animation(ring, 1, detected_tag.rgb);
+        ring.setBrightness(20);
+        ring_set_all_pixels(ring, detected_tag.rgb);
+        ring.setBrightness(20);
+        play_wav(detected_tag.wav_file_found);
+        play_wav(detected_tag.wav_file_color);
+        ring_set_all_pixels(ring, rgb_off);
+        randtagid = HAL_RNG_GetRandomNumber(&hrng) % num_tags;
+        tag_to_find = tags[randtagid];
+        wait_timer = wait_timer_max-1;
+      }
     }
 
   }
