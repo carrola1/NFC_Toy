@@ -157,7 +157,7 @@ int main(void)
   struct tag tag_to_find = tags[randtagid];
 
   uint8_t sleep_timer = 0;
-  uint8_t wait_timer_max = 7;
+  uint8_t wait_timer_max = 20;
   uint8_t wait_timer = wait_timer_max-2;
   uint8_t mode = 1;
 
@@ -191,7 +191,7 @@ int main(void)
     if (mode == 1) {
       if (wait_timer == wait_timer_max) {
         ring.setBrightness(5);
-        ring_set_all_pixels(ring, rgb_default);
+        ring_set_all_pixels(ring, tag_to_find.rgb);
         play_wav(tag_to_find.wav_file_find);
         ring.setBrightness(20);
         ring_set_all_pixels(ring, rgb_off);
@@ -202,16 +202,16 @@ int main(void)
     }
 
     // 360 degree ring animation
-    ring_loop_animation(ring, 1, rgb_default);
+    ring_loop_animation(ring, 1, tag_to_find.rgb);
     
     // Check if NFC Tag present
-    nfc_found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 50);
+    nfc_found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 25);
     if (nfc_found) {
       sleep_timer = 0;
       detected_tag = find_tag(uid);
       if ((mode == 1) && (detected_tag.uid[0] != tag_to_find.uid[0])) {
           ring.setBrightness(5);
-          ring_set_all_pixels(ring, rgb_default);
+          ring_set_all_pixels(ring, tag_to_find.rgb);
           play_wav("try_again.wav");
           ring.setBrightness(20);
           ring_set_all_pixels(ring, rgb_off);
