@@ -73,6 +73,47 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 FATFS FatFs;
+
+// Tasks
+typedef struct task {
+  uint16_t period;                // Rate at which the task should tick
+  uint16_t elapsedTime;           // Time since task's last tick
+  uint8_t state;                  //Current state
+  uint8_t (*TickFct)(uint8_t);  // Function to call for task's tick
+} task;
+
+enum NFC_States { ST_nfc_ping, ST_nfc_status };
+uint8_t TickFct_nfc(uint8_t);
+
+enum LED_States { ST_led_idle, ST_led_off, ST_led_ring, ST_led_on_tag_detected, ST_led_on_request };
+uint8_t TickFct_led(uint8_t);
+
+enum Audio_States { ST_audio_idle, ST_audio_play_song, ST_audio_play_request };
+uint8_t TickFct_audio(uint8_t);
+
+uint8_t timer_flag = 0;
+uint8_t tasks_timer = 0;
+uint16_t tasks_period = 50; // Timer tick rate
+
+// Create objects
+LIS3DH accel = LIS3DH();
+DotStar ring = DotStar(16, DOTSTAR_RBG);
+PN532 nfc = PN532();
+
+// Global Settings/Flags
+uint8_t brightness_all_on = 5;
+uint8_t brightness_ring = 20;
+RGB_VALS rgb_off;
+bool nfc_found;
+bool correct_tag_found;
+uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
+uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
+tag detected_tag;
+tag tag_to_find;
+uint8_t randtagid;
+uint8_t nfc_wait_timer = 0;
+uint8_t nfc_wait_timeout = 3;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -123,7 +164,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Setup accelerometer
-  LIS3DH accel = LIS3DH();
   accel.begin(0x32);
   accel.writeRegister8(LIS3DH_REG_INT1CFG, 0x2A);
   accel.writeRegister8(LIS3DH_REG_INT1THS, 0xBF);
@@ -131,13 +171,9 @@ int main(void)
   accel.writeRegister8(LIS3DH_REG_CTRL3, 0x40);
 
   // Setup and initialize Dotstars
-  DotStar ring = DotStar(16, DOTSTAR_RBG);
   ring.begin(); // Initialize pins for output
-  RGB_VALS rgb_off;
   rgb_off.r = 0; rgb_off.g = 0; rgb_off.b = 0;
   ring_set_all_pixels(ring, rgb_off); // Initialize LEDs to off
-  RGB_VALS rgb_default; 
-  rgb_default.r = 66; rgb_default.g = 244; rgb_default.b = 137;
 
   // Mount SD Card
   FRESULT fr;     /* FatFs return code */
@@ -146,93 +182,53 @@ int main(void)
 
   // Setup NFC Reader
   HAL_GPIO_WritePin(NFC_RST_PDN_N_GPIO_Port, NFC_RST_PDN_N_Pin, GPIO_PIN_SET);
-  PN532 nfc = PN532();
   nfc.begin();
   nfc.SAMConfig();
-  uint8_t nfc_found;
-  uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
-  uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
-  struct tag detected_tag;
-  uint32_t randtagid = HAL_RNG_GetRandomNumber(&hrng) % num_tags;
-  struct tag tag_to_find = tags[randtagid];
+  randtagid = HAL_RNG_GetRandomNumber(&hrng) % num_tags;
+  tag_to_find = tags[randtagid];
 
-  uint8_t sleep_timer = 0;
-  uint8_t wait_timer_max = 20;
-  uint8_t wait_timer = wait_timer_max-2;
-  uint8_t mode = 1;
+  // Configure tasks
+  task tasks[3];
+  const uint8_t tasks_num = 3;
+  const uint16_t period_nfc   = 200;
+  const uint16_t period_led   = 50;
+  const uint16_t period_audio = 200;
 
+  tasks[0].period      = period_nfc;
+  tasks[0].elapsedTime = tasks[0].period;
+  tasks[0].TickFct     = &TickFct_nfc;
+  tasks[0].state       = ST_nfc_ping;
+
+  tasks[1].period      = period_led;
+  tasks[1].elapsedTime = tasks[1].period;
+  tasks[1].TickFct     = &TickFct_led;
+  tasks[1].state       = ST_led_ring;
+  
+  tasks[2].period      = period_audio;
+  tasks[2].elapsedTime = tasks[2].period;
+  tasks[2].TickFct     = &TickFct_audio;
+  tasks[2].state       = ST_audio_play_request;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-
-    // put system to sleep if no accelerometer activity
-    if (sleep_timer == 15) {
-      sleep_timer = 0;
-      ring_set_all_pixels(ring, rgb_off);
-      HAL_GPIO_WritePin(NFC_RST_PDN_N_GPIO_Port, NFC_RST_PDN_N_Pin, GPIO_PIN_RESET);
-      HAL_SuspendTick();
-      HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-      HAL_ResumeTick();
-      HAL_GPIO_WritePin(NFC_RST_PDN_N_GPIO_Port, NFC_RST_PDN_N_Pin, GPIO_PIN_SET);
-      HAL_Delay(100);
-      nfc.begin();
-      nfc.SAMConfig();
-    } else {
-      //sleep_timer++;
-    }
-
-    if (mode == 1) {
-      if (wait_timer == wait_timer_max) {
-        ring.setBrightness(5);
-        ring_set_all_pixels(ring, tag_to_find.rgb);
-        play_wav(tag_to_find.wav_file_find);
-        ring.setBrightness(20);
-        ring_set_all_pixels(ring, rgb_off);
-        wait_timer = 0;
-      } else {
-        wait_timer++;
+  // Task Scheduler
+  while(1) {
+      // Heart of the scheduler code
+      for (uint8_t i = 0; i < tasks_num; ++i) {
+        if (tasks[i].elapsedTime >= tasks[i].period) { // Ready
+            tasks[i].state = tasks[i].TickFct(tasks[i].state);
+            tasks[i].elapsedTime = 0;
+        }
+        tasks[i].elapsedTime += tasks_period;
       }
-    }
-
-    // 360 degree ring animation
-    ring_loop_animation(ring, 1, tag_to_find.rgb);
-    
-    // Check if NFC Tag present
-    nfc_found = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength, 25);
-    if (nfc_found) {
-      sleep_timer = 0;
-      detected_tag = find_tag(uid);
-      if ((mode == 1) && (detected_tag.uid[0] != tag_to_find.uid[0])) {
-          ring.setBrightness(5);
-          ring_set_all_pixels(ring, tag_to_find.rgb);
-          play_wav("try_again.wav");
-          ring.setBrightness(20);
-          ring_set_all_pixels(ring, rgb_off);
-          wait_timer = 0;
-      } else {
-        ring_loop_animation(ring, 1, detected_tag.rgb);
-        ring.setBrightness(20);
-        ring_set_all_pixels(ring, detected_tag.rgb);
-        ring.setBrightness(20);
-        play_wav(detected_tag.wav_file_found);
-        play_wav(detected_tag.wav_file_color);
-        ring_set_all_pixels(ring, rgb_off);
-        randtagid = HAL_RNG_GetRandomNumber(&hrng) % num_tags;
-        tag_to_find = tags[randtagid];
-        wait_timer = wait_timer_max-1;
+      timer_flag = 0;
+      while (!timer_flag) {
+        // wait for timeout
       }
-    }
-
   }
+  return 0;
   /* USER CODE END 3 */
-
 }
 
 /**
@@ -298,6 +294,152 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_SYSTICK_Callback(void) {
+  if (tasks_timer == tasks_period) {
+    timer_flag = 1;
+    tasks_timer = 0;
+  } else {
+    tasks_timer++;
+  }
+  return;
+}
+
+// NFC State Machine
+uint8_t TickFct_nfc(uint8_t state) {
+  switch(state) { // Transitions
+    case ST_nfc_ping:
+      state = ST_nfc_status;
+      break;
+    case ST_nfc_status:
+      if (nfc_found) {
+        state = ST_nfc_ping;
+      } else if (nfc_wait_timer == nfc_wait_timeout) {
+        state = ST_nfc_ping;
+      } else {
+        state = ST_nfc_status;
+      }
+      break;
+    default:
+      state = ST_nfc_ping;
+  }
+
+  switch(state) { // State actions
+    case ST_nfc_ping:
+      nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, 10);
+      nfc_wait_timer = 0;
+      break;
+    case ST_nfc_status:
+      nfc_found = nfc.checkPassiveTargetStatus(uid, &uidLength);
+      if (nfc_found) {
+        detected_tag = find_tag(uid);
+        correct_tag_found = (detected_tag.uid[0] == tag_to_find.uid[0]);
+        randtagid = HAL_RNG_GetRandomNumber(&hrng) % num_tags;
+        tag_to_find = tags[randtagid];
+      }
+      nfc_wait_timer++;
+      break;
+    default:
+      break;
+  }
+  
+  return state;
+}
+
+// LED State Machine
+uint8_t TickFct_led(uint8_t state) {
+  switch(state) { // Transitions
+    case ST_led_idle:
+      if (nfc_found == 0) {
+        state = ST_led_ring;
+      } else {
+        state = ST_led_idle;
+      }
+      break;
+    case ST_led_off:
+      state = ST_led_idle;
+      break;
+    case ST_led_ring:
+      if (nfc_found) {
+        state = ST_led_on_tag_detected;
+      } else {
+        state = ST_led_ring;
+      }
+      break;
+    case ST_led_on_tag_detected:
+      state = ST_led_on_request;
+      break;
+    case ST_led_on_request:
+      state = ST_led_idle;
+      break;
+    default:
+      state = ST_led_idle;
+  }
+
+  switch(state) { // State actions
+    case ST_led_idle:
+      // do nothing
+      break;
+    case ST_led_off:
+      ring_set_all_pixels(ring, rgb_off);
+      break;
+    case ST_led_ring:
+      ring.decrRing(tag_to_find.rgb);
+      break;
+    case ST_led_on_tag_detected:
+      ring.setBrightness(brightness_all_on);
+      ring_set_all_pixels(ring, detected_tag.rgb);
+      ring.setBrightness(brightness_ring);
+    case ST_led_on_request:
+      ring.setBrightness(brightness_all_on);
+      ring_set_all_pixels(ring, tag_to_find.rgb);
+      ring.setBrightness(brightness_ring);
+    default:
+      break;
+  }
+  
+  return state;
+}
+
+// Audio State Machine
+uint8_t TickFct_audio(uint8_t state) {
+  switch(state) { // Transitions
+    case ST_audio_idle:
+      if (nfc_found) {
+        state = ST_audio_play_song;
+      } else {
+        state = ST_audio_idle;
+      }
+      break;
+    case ST_audio_play_song:
+      state = ST_audio_play_request;
+      break;
+    case ST_audio_play_request:
+      state = ST_audio_idle;
+      break;
+    default:
+      state = ST_audio_idle;
+  }
+  switch(state) { // State actions
+    case ST_audio_idle:
+      // do nothing
+      break;
+    case ST_audio_play_song:
+      if (correct_tag_found) {
+        play_wav(detected_tag.wav_file_found);
+      }
+      play_wav(detected_tag.wav_file_color);
+      break;
+    case ST_audio_play_request:
+      play_wav(tag_to_find.wav_file_find);
+      nfc_found = 0;
+      break;
+    default:
+      break;
+  }
+  return state;
+}
+
+
 /* USER CODE END 4 */
 
 /**

@@ -207,7 +207,7 @@ bool PN532::setPassiveActivationRetries(uint8_t maxRetries) {
     @returns 1 if everything executed properly, 0 for an error
 */
 /**************************************************************************/
-bool PN532::readPassiveTargetID(uint8_t cardbaudrate, uint8_t * uid, uint8_t * uidLength, uint16_t timeout) {
+bool PN532::readPassiveTargetID(uint8_t cardbaudrate, uint16_t timeout) {
   pn532_packetbuffer[0] = PN532_COMMAND_INLISTPASSIVETARGET;
   pn532_packetbuffer[1] = 1;  // max 1 cards at once (we can set this to 2 later)
   pn532_packetbuffer[2] = cardbaudrate;
@@ -217,42 +217,46 @@ bool PN532::readPassiveTargetID(uint8_t cardbaudrate, uint8_t * uid, uint8_t * u
     return 0x0;  // no cards read
   }
 
-  // wait for a card to enter the field (only possible with I2C)
-  if (!waitready(timeout)) {
-    return 0x0;
-  }
-
-  // read data packet
-  readdata(pn532_packetbuffer, 20);
-  // check some basic stuff
-
-  /* ISO14443A card response should be in the following format:
-
-    byte            Description
-    -------------   ------------------------------------------
-    b0..6           Frame header and preamble
-    b7              Tags Found
-    b8              Tag Number (only one used in this example)
-    b9..10          SENS_RES
-    b11             SEL_RES
-    b12             NFCID Length
-    b13..NFCIDLen   NFCID                                      */
-
-  if (pn532_packetbuffer[7] != 1)
-    return 0;
-
-  uint16_t sens_res = pn532_packetbuffer[9];
-  sens_res <<= 8;
-  sens_res |= pn532_packetbuffer[10];
-
-  /* Card appears to be Mifare Classic */
-  *uidLength = pn532_packetbuffer[12];
-  for (uint8_t i=0; i < pn532_packetbuffer[12]; i++)
-  {
-    uid[i] = pn532_packetbuffer[13+i];
-  }
-
   return 1;
+}
+
+bool PN532::checkPassiveTargetStatus(uint8_t * uid, uint8_t * uidLength) {
+  if (isready()) {
+
+    // read data packet
+    readdata(pn532_packetbuffer, 20);
+    // check some basic stuff
+
+    /* ISO14443A card response should be in the following format:
+
+      byte            Description
+      -------------   ------------------------------------------
+      b0..6           Frame header and preamble
+      b7              Tags Found
+      b8              Tag Number (only one used in this example)
+      b9..10          SENS_RES
+      b11             SEL_RES
+      b12             NFCID Length
+      b13..NFCIDLen   NFCID                                      */
+
+    if (pn532_packetbuffer[7] != 1)
+      return 0;
+
+    uint16_t sens_res = pn532_packetbuffer[9];
+    sens_res <<= 8;
+    sens_res |= pn532_packetbuffer[10];
+
+    /* Card appears to be Mifare Classic */
+    *uidLength = pn532_packetbuffer[12];
+    for (uint8_t i=0; i < pn532_packetbuffer[12]; i++)
+    {
+      uid[i] = pn532_packetbuffer[13+i];
+    }
+
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**************************************************************************/

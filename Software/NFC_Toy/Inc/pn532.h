@@ -148,7 +148,8 @@ class PN532{
   bool     setPassiveActivationRetries(uint8_t maxRetries);
   
   // ISO14443A functions
-  bool readPassiveTargetID(uint8_t cardbaudrate, uint8_t * uid, uint8_t * uidLength, uint16_t timeout = 0); //timeout 0 means no timeout - will block forever.
+  bool readPassiveTargetID(uint8_t cardbaudrate, uint16_t timeout = 0); //timeout 0 means no timeout - will block forever.
+  bool checkPassiveTargetStatus(uint8_t * uid, uint8_t * uidLength);
   bool inDataExchange(uint8_t * send, uint8_t sendLength, uint8_t * response, uint8_t * responseLength);
   bool inListPassiveTarget();
   

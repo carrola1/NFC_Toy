@@ -28,17 +28,13 @@
 #include "gpio.h"
 #include <stdlib.h>
 
-#define Data_Port DOT_STAR_DATA_GPIO_Port
-#define Data_Pin DOT_STAR_DATA_Pin
-#define Clock_Port DOT_STAR_CLK_GPIO_Port
-#define Clock_Pin DOT_STAR_CLK_Pin
-
 // Constructor for 'soft' (bitbang) SPI -- any two pins can be used
 DotStar::DotStar(uint8_t n, uint8_t o) :
  brightness(0), pixels(NULL), rOffset(o & 3), gOffset((o >> 2) & 3),
  bOffset((o >> 4) & 3)
 {
   updateLength(n);
+  ringIndex = 0;
 }
 
 DotStar::~DotStar(void) { // Destructor
@@ -117,6 +113,28 @@ void DotStar::show(void) {
     } while(--n);
   }
   for(i=0; i<((numLEDs + 15) / 16); i++) sw_spi_out(0xFF); // End-frame marker (see note above)
+}
+
+void DotStar::incrRing(RGB_VALS rgb) {
+  setPixelColor(ringIndex, 0, 0, 0);
+  if (ringIndex == numLEDs-1) {
+    ringIndex = 0;
+  } else {
+    ringIndex++;
+  }
+  setPixelColor(ringIndex, rgb.r, rgb.g, rgb.b);
+  show();
+}
+
+void DotStar::decrRing(RGB_VALS rgb) {
+  setPixelColor(ringIndex, 0, 0, 0);
+  if (ringIndex == 0) {
+    ringIndex = numLEDs-1;
+  } else {
+    ringIndex--;
+  }
+  setPixelColor(ringIndex, rgb.r, rgb.g, rgb.b);
+  show();
 }
 
 void DotStar::clear() { // Write 0s (off) to full pixel buffer
